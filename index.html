@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elena & Luis — 17 de octubre de 2026</title>
+  <meta name="description"
+    content="Boda de Elena y Luis · 17 de octubre de 2026 · Bodega Laus, Barbastro, Somontano. Confirma tu asistencia." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/svg+xml" href="images/Logo.svg" />
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="Elena & Luis — 17 de octubre de 2026" />
+  <meta property="og:description"
+    content="Nos casamos y nos hace muchísima ilusión celebrar este día con vosotros en Bodega Laus." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/paisaje-2.jpeg" />
+  <meta property="og:url" content="https://elenayluis.com" />
+
+  <!-- Preload -->
+  <link rel="preload" as="image" href="images/paisaje-2.jpeg" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════ -->
+  <nav id="main-nav" class="nav">
+    <div class="nav__overlay" id="nav-overlay"></div>
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">
+        <img src="images/Logo.svg?v=2" alt="Elena & Luis Logo" class="nav__logo-img" />
+      </a>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="#about">Celebración</a></li>
+        <li><a href="#details">Detalles</a></li>
+        <li><a href="#gallery">Galería</a></li>
+        <li><a href="rsvp.html">Confirmar</a></li>
+        <li><a href="#faq">Preguntas</a></li>
+        <li><a href="#contact">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       1 · HERO
+  ═══════════════════════════════════════════ -->
+  <header id="hero" class="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">Elena <span>&amp;</span> Luis</h1>
+      <p class="hero__date">17 de octubre de 2026</p>
+      <p class="hero__venue">Bodega Laus · Barbastro</p>
+      <p class="hero__welcome reveal">
+        Nos casamos y nos hace muchísima ilusión celebrar este día con vosotros,
+        brindando juntos en un rincón del Somontano que nos encanta.
+      </p>
+      <div class="countdown reveal" id="countdown">
+        <div class="countdown__block">
+          <span class="countdown__number" id="cd-days">000</span>
+          <span class="countdown__label">Días</span>
+        </div>
+        <div class="countdown__block">
+          <span class="countdown__number" id="cd-hours">00</span>
+          <span class="countdown__label">Horas</span>
+        </div>
+        <div class="countdown__block">
+          <span class="countdown__number" id="cd-mins">00</span>
+          <span class="countdown__label">Minutos</span>
+        </div>
+        <div class="countdown__block">
+          <span class="countdown__number" id="cd-secs">00</span>
+          <span class="countdown__label">Segundos</span>
+        </div>
+      </div>
+      <a href="rsvp.html" class="btn btn--primary hero__cta reveal">Confirmar asistencia</a>
+    </div>
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <span></span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       2 · ABOUT
+  ═══════════════════════════════════════════ -->
+  <section id="about" class="section about">
+    <div class="container container--narrow">
+      <div class="section__header">
+        <span class="section__overline reveal">Cómo lo vamos a celebrar</span>
+        <h2 class="section__title reveal">Un día muy nuestro</h2>
+      </div>
+      <div class="about__grid reveal">
+        <div class="about__text">
+          <p>
+            Siempre habíamos soñado con una boda al aire libre, en un entorno bonito y
+            especial, y rodeados de la gente que de verdad forma parte de nuestra vida.
+          </p>
+          <p>
+            Queremos vivir este día con vosotros y convertirlo en un recuerdo precioso,
+            con emoción, buena comida, vino del Somontano y una fiesta para disfrutar,
+            reír y bailar juntos sin mirar el reloj.
+          </p>
+        </div>
+        <div class="about__image">
+          <img src="images/novios-1.jpeg" alt="Elena y Luis" width="600" height="800" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       3 · WEDDING DETAILS
+  ═══════════════════════════════════════════ -->
+  <section id="details" class="section details">
+    <div class="container">
+
+      <div class="section__header section__header--center">
+        <span class="section__overline reveal">Detalles</span>
+        <h2 class="section__title reveal">El plan del día</h2>
+        <p class="details__intro reveal">
+          Aquí os dejamos los detalles más importantes para que solo tengáis
+          que venir, disfrutar y celebrar con nosotros.
+        </p>
+      </div>
+
+      <!-- Cards ceremonia + lugar -->
+      <div class="details__main-cards reveal">
+
+        <div class="card card--detailed">
+          <div class="card__icon-wrap">
+            <img src="images/anillos.svg" alt="" aria-hidden="true" class="card__icon-img" />
+          </div>
+          <h3 class="card__title">Ceremonia</h3>
+          <div class="card__body">
+            <p class="card__date">Sábado, 17 de octubre de 2026</p>
+            <p class="card__time">13:00 h</p>
+            <p class="card__note">Os recomendamos llegar unos minutos antes del comienzo.</p>
+          </div>
+          <a href="#" class="card__btn" id="calendar-btn">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="3" y="4" width="14" height="13" rx="2"></rect>
+              <path d="M3 8h14M7 2v3M13 2v3"></path>
+            </svg>
+            Guardar en mi calendario
+          </a>
+        </div>
+
+        <div class="card card--detailed">
+          <div class="card__icon-wrap">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" class="card__icon-svg" aria-hidden="true">
+              <path d="M24 4C16.268 4 10 10.268 10 18c0 10.5 14 26 14 26S38 28.5 38 18c0-7.732-6.268-14-14-14z"></path>
+              <circle cx="24" cy="18" r="4.5"></circle>
+            </svg>
+          </div>
+          <h3 class="card__title">Lugar</h3>
+          <div class="card__body">
+            <p class="card__date">Bodega Laus</p>
+            <p class="card__time">Barbastro · Huesca</p>
+            <p class="card__note">La ceremonia y la celebración tendrán lugar en el mismo espacio.</p>
+          </div>
+          <a href="https://maps.google.com/?q=Bodega+Laus+Barbastro" target="_blank" rel="noopener" class="card__btn">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M10 2C6.686 2 4 4.686 4 8c0 4.667 6 10 6 10s6-5.333 6-10c0-3.314-2.686-6-6-6z"></path>
+              <circle cx="10" cy="8" r="2"></circle>
+            </svg>
+            Ver en Google Maps
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Autobuses de ida -->
+      <div class="bus-block bus-block--ida reveal">
+        <span class="bus-block__label">Autobuses de ida</span>
+        <div class="bus-block__cards">
+          <article class="bus-card">
+            <div class="bus-card__text">
+              <span class="bus-card__city">Huesca</span>
+              <span class="bus-card__venue">Plaza de Toros</span>
+            </div>
+            <span class="bus-card__time">12:00 h</span>
+          </article>
+          <article class="bus-card">
+            <div class="bus-card__text">
+              <span class="bus-card__city">Barbastro</span>
+              <span class="bus-card__venue">Coso de Barbastro</span>
+            </div>
+            <span class="bus-card__time">12:30 h</span>
+          </article>
+        </div>
+      </div>
+
+      <!-- Hilo conector -->
+      <div class="dia-thread" aria-hidden="true">
+        <div class="dia-thread__line"></div>
+        <div class="dia-thread__dot"></div>
+        <div class="dia-thread__line"></div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="tl-section reveal">
+        <p class="tl-section__heading">El día, momento a momento</p>
+        <div class="event-timeline">
+          <div class="event-timeline__track"></div>
+
+          <div class="event-item">
+            <div class="event-item__dot"></div>
+            <div class="event-item__icon-wrapper">
+              <img src="images/anillos.svg" alt="" class="event-item__icon" />
+            </div>
+            <div class="event-item__content">
+              <span class="event-item__time">13:00 h</span>
+              <h4 class="event-item__title">Ceremonia</h4>
+              <p class="event-item__desc">En el salón de la Bodega Laus</p>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item__dot"></div>
+            <div class="event-item__icon-wrapper">
+              <img src="images/copas_vino.svg" alt="" class="event-item__icon" />
+            </div>
+            <div class="event-item__content">
+              <span class="event-item__time">14:00 h</span>
+              <h4 class="event-item__title">Vino de Bienvenida</h4>
+              <p class="event-item__desc">Bajo el porche principal</p>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item__dot"></div>
+            <div class="event-item__icon-wrapper">
+              <img src="images/coctel.svg" alt="" class="event-item__icon" />
+            </div>
+            <div class="event-item__content">
+              <span class="event-item__time">15:30 h</span>
+              <h4 class="event-item__title">Banquete &amp; Cóctel</h4>
+              <p class="event-item__desc">Gastronomía del Somontano</p>
+            </div>
+          </div>
+
+          <div class="event-item">
+            <div class="event-item__dot"></div>
+            <div class="event-item__icon-wrapper">
+              <img src="images/fiesta.svg" alt="" class="event-item__icon" />
+            </div>
+            <div class="event-item__content">
+              <span class="event-item__time">18:00 h</span>
+              <h4 class="event-item__title">La Fiesta</h4>
+              <p class="event-item__desc">Música en directo y barra libre</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Hilo conector -->
+      <div class="dia-thread" aria-hidden="true">
+        <div class="dia-thread__line"></div>
+        <div class="dia-thread__dot"></div>
+        <div class="dia-thread__line"></div>
+      </div>
+
+      <!-- Autobuses de vuelta -->
+      <div class="bus-block bus-block--vuelta reveal">
+        <span class="bus-block__label">Autobuses de vuelta</span>
+        <div class="bus-block__cards">
+          <article class="bus-card">
+            <div class="bus-card__text">
+              <span class="bus-card__city">Barbastro</span>
+              <span class="bus-card__venue">Regreso al Coso</span>
+            </div>
+            <span class="bus-card__time">23:45 h</span>
+          </article>
+          <article class="bus-card">
+            <div class="bus-card__text">
+              <span class="bus-card__city">Huesca</span>
+              <span class="bus-card__venue">Regreso a Plaza de Toros</span>
+            </div>
+            <span class="bus-card__time">23:45 h</span>
+          </article>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
+  </section><!-- /#details -->
+
+  <!-- ═══════════════════════════════════════════
+       4 · PHOTO GALLERY
+  ═══════════════════════════════════════════ -->
+  <section id="gallery" class="section gallery">
+    <div class="container">
+      <div class="section__header section__header--center">
+        <span class="section__overline reveal">Galería</span>
+        <h2 class="section__title reveal">Recuerdos que nos han traído hasta aquí</h2>
+        <p class="gallery__intro reveal">
+          Pequeños momentos de nuestra historia que hoy queremos compartir con vosotros.
+        </p>
+      </div>
+      <div class="gallery__grid gallery__grid--trio">
+        <figure class="gallery__item gallery__item--portrait reveal">
+          <img src="images/novios-2.jpeg" alt="Elena y Luis brindando juntos" width="1120" height="2000"
+            loading="lazy" />
+        </figure>
+        <figure class="gallery__item gallery__item--portrait gallery__item--soft reveal">
+          <img src="images/paisaje-1.jpeg" alt="Pueyo desde la caseta al atardecer" width="1125" height="2000"
+            loading="lazy" />
+        </figure>
+        <figure class="gallery__item gallery__item--portrait reveal">
+          <img src="images/novios-5.jpg" alt="Retrato de Elena y Luis" width="1120" height="1680" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       5 · RSVP
+  ═══════════════════════════════════════════ -->
+  <section id="rsvp" class="section rsvp">
+    <div class="container container--narrow section__header">
+      <span class="section__overline reveal">Confirma tu asistencia</span>
+      <h2 class="section__title reveal">¿Nos acompañas?</h2>
+      <p class="rsvp__intro reveal">
+        Necesitamos saber si vienes para organizarnos bien.
+        Rellena el formulario y cuéntanos si necesitas bus o tienes alguna alergia.
+      </p>
+      <div class="reveal">
+        <a href="rsvp.html" class="btn btn--primary btn--inline">Ir al formulario de confirmación</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       6 · FAQ
+  ═══════════════════════════════════════════ -->
+  <section id="faq" class="section faq">
+    <div class="container container--narrow">
+      <span class="section__overline reveal">Preguntas frecuentes</span>
+      <h2 class="section__title reveal">Lo que nos preguntáis</h2>
+      <div class="accordion reveal">
+
+        <details class="accordion__item">
+          <summary class="accordion__header">¿Cómo llego a Bodega Laus?</summary>
+          <div class="accordion__body">
+            <p>La bodega se encuentra a las afueras de Barbastro, en la comarca del Somontano (Huesca).
+              Podéis llegar en coche o utilizar el servicio de autobús que pondremos a vuestra disposición.</p>
+          </div>
+        </details>
+
+        <details class="accordion__item">
+          <summary class="accordion__header">¿Habrá servicio de autobús?</summary>
+          <div class="accordion__body">
+            <p>Sí, pondremos servicio de autobús desde Huesca y Barbastro. El autobús saldrá de Huesca a las 12:00 h y
+              de Barbastro a las 12:30 h. Si vais a utilizarlo, solo tenéis que indicarlo en el formulario de
+              confirmación y más adelante os enviaremos toda la información.
+            </p>
+
+          </div>
+        </details>
+
+        <details class="accordion__item">
+          <summary class="accordion__header">¿Cuál es el código de vestimenta?</summary>
+          <div class="accordion__body">
+            <p>Os pedimos vestimenta elegante pero cómoda.¡Venid guapos y preparados para disfrutar!</p>
+          </div>
+        </details>
+
+        <details class="accordion__item">
+          <summary class="accordion__header">¿A qué hora empieza y termina la boda?</summary>
+          <div class="accordion__body">
+            <p>La ceremonia es a las 13:00 h. Después viene el cóctel, el banquete y la fiesta.
+              Preparaos para una jornada larga que se alargará hasta bien entrada la noche.</p>
+          </div>
+        </details>
+
+        <details class="accordion__item">
+          <summary class="accordion__header">¿Dónde puedo alojarme?</summary>
+          <div class="accordion__body">
+            <p>Barbastro y alrededores cuentan con varios hoteles y casas rurales con mucho encanto.
+              Escribidnos y os pasaremos una lista de recomendaciones con tarifas especiales.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       7 · CONTACT
+  ═══════════════════════════════════════════ -->
+  <section id="contact" class="section contact">
+    <div class="container container--narrow contact__inner">
+      <span class="section__overline reveal">Contacto</span>
+      <h2 class="section__title reveal">¿Alguna duda?</h2>
+      <p class="contact__text reveal">
+        Para cualquier duda, escribidnos directamente.
+      </p>
+      <div class="contact__links reveal">
+        <a href="mailto:oliverapinieselena@gmail.com" class="btn btn--outline">Escríbenos un email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__main">
+      <p class="footer__text">Elena &amp; Luis · 17 de octubre de 2026</p>
+      <p class="footer__sub">Somontano, Huesca</p>
+    </div>
+
+    <!-- Créditos integrados -->
+    <div class="credits">
+      <p class="credits__text">
+        Design and development by
+        <a href="mailto:joliverapinies@gmail.com" class="credits__link">Jorge</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

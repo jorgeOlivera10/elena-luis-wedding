@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmar Asistencia — Elena & Luis</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    body {
+      background-color: var(--cream-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .nav {
+      position: relative;
+      background: var(--cream);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+    }
+
+    .nav__links {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    main {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      padding: 4rem 1rem;
+    }
+
+    .rsvp-page {
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--burgundy);
+    }
+
+    .back-link svg {
+      margin-right: 8px;
+    }
+
+    .form__divider {
+      margin: 2rem 0 1.5rem;
+      border-top: 1px solid var(--beige);
+      padding-top: 1.5rem;
+      font-family: var(--ff-heading);
+      font-size: 1.3rem;
+      color: var(--burgundy);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <img src="images/Logo.svg?v=2" alt="Elena & Luis Logo" class="nav__logo-img" />
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="index.html">Volver a la web principal</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="rsvp-page">
+
+      <a href="index.html" class="back-link reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Volver atrás
+      </a>
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <span class="section__overline reveal">17 de Octubre de 2026</span>
+        <h1 class="section__title reveal" style="margin-bottom: 1rem;">Cuéntanos si vienes</h1>
+        <p class="reveal" style="color: var(--text-light);">
+          Por favor, confírmanos tu asistencia rellenando este formulario.
+          Nos ayudará muchísimo con la organización.
+        </p>
+      </div>
+
+      <form id="rsvp-page-form" class="form reveal" novalidate>
+
+        <!-- Campo trampa anti-bot -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" name="honeypot" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="form__group">
+          <label for="rsvp-name" class="form__label">Nombre y apellidos *</label>
+          <input type="text" id="rsvp-name" name="nombre" class="form__input" required
+            placeholder="Como aparece en tu invitación" />
+        </div>
+
+        <div class="form__group">
+          <label for="rsvp-phone" class="form__label">Teléfono</label>
+          <input type="tel" id="rsvp-phone" name="telefono" class="form__input"
+            placeholder="Opcional, para avisos importantes" />
+        </div>
+
+        <div class="form__group">
+          <label for="rsvp-email" class="form__label">Email</label>
+          <input type="email" id="rsvp-email" name="email" class="form__input"
+            placeholder="Opcional, para enviarte detalles" />
+        </div>
+
+        <div class="form__divider">Asistencia</div>
+
+        <div class="form__group">
+          <label class="form__label">¿Podrás acompañarnos? *</label>
+          <div class="form__radio-group">
+            <label class="form__radio">
+              <input type="radio" name="asistencia" value="si" required />
+              <span>Sí, ¡allí estaré!</span>
+            </label>
+            <label class="form__radio">
+              <input type="radio" name="asistencia" value="no" required />
+              <span>No podré asistir</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Campos para los que SÍ asisten -->
+        <div id="rsvp-conditional-fields" style="display: none;">
+
+          <div class="form__divider">Acompañantes y Niños</div>
+
+          <div class="form__group">
+            <label class="form__label">¿Vendrás con acompañante?</label>
+            <div class="form__radio-group">
+              <label class="form__radio">
+                <input type="radio" name="acompanante" value="si" />
+                <span>Sí</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="acompanante" value="no" />
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form__group" id="field-nombre-acompanante" style="display: none;">
+            <label for="rsvp-companion-name" class="form__label">Nombre del acompañante</label>
+            <input type="text" id="rsvp-companion-name" name="nombre_acompanante" class="form__input"
+              placeholder="Nombre completo" />
+          </div>
+
+          <div class="form__group">
+            <label for="rsvp-kids" class="form__label">¿Asistirán niños? Indícanos cuántos</label>
+            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0" max="10"
+              placeholder="0" />
+            <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">
+              Deja en blanco o 0 si no vienen niños
+            </span>
+          </div>
+
+          <div class="form__group" id="field-edades-ninos" style="display: none;">
+            <label for="rsvp-kids-ages" class="form__label">Edades aproximadas de los niños</label>
+            <input type="text" id="rsvp-kids-ages" name="edades_ninos" class="form__input"
+              placeholder="Ej: 3 y 7 años" />
+          </div>
+
+          <div class="form__divider">Menú</div>
+
+          <div class="form__group">
+            <label for="rsvp-allergies" class="form__label">¿Hay alergias, intolerancias o preferencias?</label>
+            <textarea id="rsvp-allergies" name="alergias" class="form__textarea" rows="2"
+              placeholder="Ej: Celiaquía, intolerancia a la lactosa... Deja en blanco si no hay ninguna."></textarea>
+          </div>
+
+          <div class="form__group" id="field-menu-infantil" style="display: none;">
+            <label for="rsvp-kids-menu" class="form__label">¿Cuántos menús infantiles necesitáis?</label>
+            <input type="number" id="rsvp-kids-menu" name="menus_infantiles" class="form__input form__input--short"
+              min="0" max="10" placeholder="0" />
+          </div>
+
+          <div class="form__divider">Transporte y Alojamiento</div>
+
+          <div class="form__group">
+            <label class="form__label">¿Usaréis el servicio de autobús?</label>
+            <div class="form__radio-group">
+              <label class="form__radio">
+                <input type="radio" name="autobus" value="no" />
+                <span>No lo necesitamos</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="autobus" value="ida" />
+                <span>Solo ida</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="autobus" value="vuelta" />
+                <span>Solo vuelta</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="autobus" value="ida_y_vuelta" />
+                <span>Ida y vuelta</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="fields-bus-details" style="display: none;">
+            <div class="form__group">
+              <label for="rsvp-bus-seats" class="form__label">¿Cuántas plazas de autobús necesitáis?</label>
+              <input type="number" id="rsvp-bus-seats" name="plazas_bus" class="form__input form__input--short" min="1"
+                max="10" placeholder="0" />
+            </div>
+            <div class="form__group">
+              <label class="form__label">Punto de salida / llegada preferido</label>
+              <div class="form__radio-group">
+                <label class="form__radio">
+                  <input type="radio" name="punto_bus" value="huesca" />
+                  <span>Huesca — Plaza de Toros · 12:00 h</span>
+                </label>
+                <label class="form__radio">
+                  <input type="radio" name="punto_bus" value="barbastro" />
+                  <span>Barbastro — Coso · 12:30 h</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label">¿Necesitáis ayuda con el alojamiento?</label>
+            <div class="form__radio-group">
+              <label class="form__radio">
+                <input type="radio" name="alojamiento" value="si" />
+                <span>Sí, enviadme opciones</span>
+              </label>
+              <label class="form__radio">
+                <input type="radio" name="alojamiento" value="no" />
+                <span>No, ya lo tenemos</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form__divider">Para terminar</div>
+
+          <div class="form__group">
+            <label for="rsvp-song" class="form__label">Canción que te hará salir a la pista sí o sí</label>
+            <input type="text" id="rsvp-song" name="cancion" class="form__input" placeholder="Título y artista" />
+          </div>
+
+          <div class="form__group">
+            <label for="rsvp-comments" class="form__label">¿Algún comentario o duda adicional?</label>
+            <textarea id="rsvp-comments" name="comentarios" class="form__textarea" rows="3"
+              placeholder="Te leemos..."></textarea>
+          </div>
+
+        </div>
+
+        <!-- Campos para los que NO asisten -->
+        <div id="rsvp-not-attending-fields" style="display: none;">
+          <div class="form__divider">Lo sentimos mucho</div>
+          <div class="form__group">
+            <label for="rsvp-message" class="form__label">¿Quieres dejarnos un mensaje?</label>
+            <textarea id="rsvp-message" name="mensaje_no_asiste" class="form__textarea" rows="3"
+              placeholder="Te echaremos de menos. Déjanos unas palabras si quieres..."></textarea>
+          </div>
+        </div>
+
+        <div class="form__group" style="margin-top: 2rem;">
+          <label class="form__radio" style="align-items: flex-start;">
+            <input type="checkbox" name="confirmacion" required style="margin-top: 4px;" />
+            <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-light);">
+              Confirmo que los datos son correctos. *
+            </span>
+          </label>
+        </div>
+
+        <p class="form__privacy">
+          Los datos que facilitas se usarán únicamente para
+          organizar la boda de Elena y Luis y no serán cedidos
+          a terceros ni usados para ningún otro fin.
+        </p>
+
+        <button type="submit" class="btn btn--primary form__submit" id="rsvp-submit">
+          Enviar respuesta
+        </button>
+
+      </form>
+
+      <!-- Mensaje de éxito -->
+      <div id="rsvp-success" class="rsvp__success" style="display:none; background: var(--white);
+           border-radius: var(--radius); padding: 4rem 2rem; text-align: center;">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--olive)" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 1.5rem;">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <h3 style="font-family: var(--ff-heading); font-size: 2rem; color: var(--burgundy); margin-bottom: 1rem;">
+          ¡Respuesta guardada!
+        </h3>
+        <p style="color: var(--text-light); font-size: 1.1rem; max-width: 400px; margin: 0 auto 2rem;">
+          Muchísimas gracias por confirmarnos, hemos registrado tu respuesta.
+        </p>
+        <a href="index.html" class="btn btn--outline">Volver a la portada</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      /* ── Reveal ── */
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+          el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+      }, 100);
+
+      /* ── Referencias ── */
+      const form = document.getElementById('rsvp-page-form');
+      const conditionalFields = document.getElementById('rsvp-conditional-fields');
+      const notAttendingFields = document.getElementById('rsvp-not-attending-fields');
+      const companionNameField = document.getElementById('field-nombre-acompanante');
+      const kidsAgesField = document.getElementById('field-edades-ninos');
+      const kidsMenuField = document.getElementById('field-menu-infantil');
+      const busDetailsFields = document.getElementById('fields-bus-details');
+
+      /* ── Lógica condicional ── */
+      document.querySelectorAll('input[name="asistencia"]').forEach(r => {
+        r.addEventListener('change', e => {
+          const asiste = e.target.value === 'si';
+          conditionalFields.style.display = asiste ? 'block' : 'none';
+          notAttendingFields.style.display = asiste ? 'none' : 'block';
+        });
+      });
+
+      document.querySelectorAll('input[name="acompanante"]').forEach(r => {
+        r.addEventListener('change', e => {
+          companionNameField.style.display = e.target.value === 'si' ? 'block' : 'none';
+        });
+      });
+
+      const kidsInput = document.getElementById('rsvp-kids');
+      if (kidsInput) {
+        kidsInput.addEventListener('input', e => {
+          const show = (parseInt(e.target.value) || 0) > 0;
+          kidsAgesField.style.display = show ? 'block' : 'none';
+          kidsMenuField.style.display = show ? 'block' : 'none';
+        });
+      }
+
+      document.querySelectorAll('input[name="autobus"]').forEach(r => {
+        r.addEventListener('change', e => {
+          busDetailsFields.style.display = e.target.value === 'no' ? 'none' : 'block';
+        });
+      });
+
+      /* ── Envío real ── */
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTrYvA9a_RmSMEkBoAgy6UaaGC1mk_zE49JV68Z0kpj4Dy9DPDnrDGuC4sL8I6qImv/exec';
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+
+        const nombreInput = form.querySelector('[name="nombre"]');
+        const asistencia = form.querySelector('[name="asistencia"]:checked');
+        const confirmBox = form.querySelector('[name="confirmacion"]');
+
+        if (!nombreInput.value.trim() || nombreInput.value.trim().length < 2) {
+          showError('Por favor, escribe tu nombre completo.');
+          nombreInput.focus();
+          return;
+        }
+        if (!asistencia) {
+          showError('Por favor, indica si asistirás a la boda.');
+          return;
+        }
+        if (confirmBox && !confirmBox.checked) {
+          showError('Debes confirmar que los datos son correctos.');
+          return;
+        }
+
+        const btn = document.getElementById('rsvp-submit');
+        const btnTexto = btn.textContent;
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+        hideError();
+
+        const fd = new FormData(form);
+        const asiste = fd.get('asistencia') === 'si';
+
+        const payload = {
+          nombre: fd.get('nombre') || '',
+          telefono: fd.get('telefono') || '',
+          email: fd.get('email') || '',
+          asistencia: fd.get('asistencia') || '',
+          honeypot: fd.get('honeypot') || '',
+          acompanante: asiste ? fd.get('acompanante') || '' : '',
+          nombre_acompanante: asiste ? fd.get('nombre_acompanante') || '' : '',
+          ninos: asiste ? fd.get('ninos') || '' : '',
+          edades_ninos: asiste ? fd.get('edades_ninos') || '' : '',
+          alergias: asiste ? fd.get('alergias') || '' : '',
+          menus_infantiles: asiste ? fd.get('menus_infantiles') || '' : '',
+          autobus: asiste ? fd.get('autobus') || '' : '',
+          plazas_bus: asiste ? fd.get('plazas_bus') || '' : '',
+          punto_bus: asiste ? fd.get('punto_bus') || '' : '',
+          alojamiento: asiste ? fd.get('alojamiento') || '' : '',
+          cancion: asiste ? fd.get('cancion') || '' : '',
+          comentarios: asiste ? fd.get('comentarios') || '' : '',
+          mensaje_no_asiste: !asiste ? fd.get('mensaje_no_asiste') || '' : '',
+        };
+
+        try {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
+          });
+          const result = await res.json();
+
+          if (result.success) {
+            form.style.display = 'none';
+            document.getElementById('rsvp-success').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            showError(result.message || 'Ha ocurrido un error. Inténtalo de nuevo.');
+            btn.textContent = btnTexto;
+            btn.disabled = false;
+          }
+        } catch (err) {
+          showError('No se pudo conectar. Comprueba tu conexión e inténtalo de nuevo.');
+          btn.textContent = btnTexto;
+          btn.disabled = false;
+        }
+      });
+
+      /* ── Helpers error ── */
+      function showError(msg) {
+        let el = document.getElementById('form-error-msg');
+        if (!el) {
+          el = document.createElement('p');
+          el.id = 'form-error-msg';
+          el.style.cssText = 'color:#c0392b;font-size:.9rem;margin-top:1rem;text-align:center;';
+          document.getElementById('rsvp-submit').insertAdjacentElement('afterend', el);
+        }
+        el.textContent = msg;
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      function hideError() {
+        const el = document.getElementById('form-error-msg');
+        if (el) el.textContent = '';
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>
