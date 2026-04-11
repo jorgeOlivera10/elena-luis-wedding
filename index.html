@@ -18,9 +18,10 @@
   <link rel="icon" type="image/svg+xml" href="images/Logo.svg" />
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com;" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  
+
   <!-- Open Graph / Meta -->
   <meta property="og:title" content="Elena & Luis — 17 de octubre de 2026" />
   <meta property="og:description"
@@ -423,7 +424,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       // Obfuscated email loading
       const contactBtn = document.getElementById('contact-email-btn');
-      if(contactBtn) {
+      if (contactBtn) {
         contactBtn.addEventListener('click', (e) => {
           e.preventDefault();
           const email = atob('b2xpdmVyYXBpbmllc2VsZW5hQGdtYWlsLmNvbQ=='); // oliverapinieselena@gmail.com
@@ -454,7 +455,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const creditsLnk = document.getElementById('credits-email-link');
-      if(creditsLnk) {
+      if (creditsLnk) {
         creditsLnk.addEventListener('click', (e) => {
           e.preventDefault();
           const email = atob('am9saXZlcmFwaW5pZXNAZ21haWwuY29t'); // joliverapinies@gmail.com
