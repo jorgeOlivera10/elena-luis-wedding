@@ -4,6 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com;" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Confirmar Asistencia — Elena & Luis</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -111,8 +115,10 @@
       <form id="rsvp-page-form" class="form reveal" novalidate>
 
         <!-- Campo trampa anti-bot -->
-        <div style="display:none" aria-hidden="true">
-          <input type="text" name="honeypot" tabindex="-1" autocomplete="off" />
+        <div style="position: absolute; opacity: 0; top: 0; left: 0; height: 0; width: 0; z-index: -1;"
+          aria-hidden="true">
+          <label for="honeypot">Website</label>
+          <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
         </div>
 
         <div class="form__group">
@@ -130,7 +136,8 @@
         <div class="form__group">
           <label for="rsvp-email" class="form__label">Email</label>
           <input type="email" id="rsvp-email" name="email" class="form__input"
-            placeholder="Opcional, para enviarte detalles" />
+            placeholder="Opcional, para enviarte detalles"
+            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" />
         </div>
 
         <div class="form__divider">Asistencia</div>
@@ -176,7 +183,7 @@
 
           <div class="form__group">
             <label for="rsvp-kids" class="form__label">¿Asistirán niños? Indícanos cuántos</label>
-            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0" max="10"
+            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0"
               placeholder="0" />
             <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">
               Deja en blanco o 0 si no vienen niños
@@ -200,7 +207,7 @@
           <div class="form__group" id="field-menu-infantil" style="display: none;">
             <label for="rsvp-kids-menu" class="form__label">¿Cuántos menús infantiles necesitáis?</label>
             <input type="number" id="rsvp-kids-menu" name="menus_infantiles" class="form__input form__input--short"
-              min="0" max="10" placeholder="0" />
+              min="0" placeholder="0" />
           </div>
 
           <div class="form__divider">Transporte y Alojamiento</div>
@@ -231,7 +238,7 @@
             <div class="form__group">
               <label for="rsvp-bus-seats" class="form__label">¿Cuántas plazas de autobús necesitáis?</label>
               <input type="number" id="rsvp-bus-seats" name="plazas_bus" class="form__input form__input--short" min="1"
-                max="10" placeholder="0" />
+                placeholder="0" />
             </div>
             <div class="form__group">
               <label class="form__label">Punto de salida / llegada preferido</label>
@@ -291,15 +298,15 @@
           <label class="form__radio" style="align-items: flex-start;">
             <input type="checkbox" name="confirmacion" required style="margin-top: 4px;" />
             <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-light);">
-              Confirmo que los datos son correctos. *
+              Confirmo que mis datos son correctos y consiento su uso. *
             </span>
           </label>
         </div>
 
         <p class="form__privacy">
-          Los datos que facilitas se usarán únicamente para
-          organizar la boda de Elena y Luis y no serán cedidos
-          a terceros ni usados para ningún otro fin.
+          <strong>Privacidad (RGPD):</strong> Los datos de carácter personal que facilitas se usarán ÚNICAMENTE para
+          fines logísticos y de organización de la boda de Elena y Luis. No serán cedidos a terceros y serán
+          eliminados permanentemente 30 días después del evento.
         </p>
 
         <button type="submit" class="btn btn--primary form__submit" id="rsvp-submit">
@@ -380,7 +387,7 @@
       });
 
       /* ── Envío real ── */
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTrYvA9a_RmSMEkBoAgy6UaaGC1mk_zE49JV68Z0kpj4Dy9DPDnrDGuC4sL8I6qImv/exec';
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzP8LaaNX78ATcXl-IfEfcAPJJozUyk4UPciy5ViBlXjTfkTxIYIAgGY0M0hXiinynm/exec';
 
       form.addEventListener('submit', async e => {
         e.preventDefault();
