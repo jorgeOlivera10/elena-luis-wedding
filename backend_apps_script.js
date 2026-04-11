@@ -10,7 +10,7 @@
  * 6. Copia la nueva URL y actualiza el archivo rsvp.html en la línea de APPS_SCRIPT_URL.
  */
 
-const SHEET_NAME = "Respuestas boda"; // Nombre de la pestaña de tu Google Sheet
+const SHEET_NAME = "Respuestas"; // Nombre de la pestaña de tu Google Sheet
 const ALLOWED_ORIGIN = "https://elenayluis.com"; // Tu dominio real (cambiar si usas otro)
 const ALLOWED_DOMAIN_2 = "https://entreviñasymontañas.com"; // Dominio alternativo
 
