@@ -135,9 +135,8 @@
 
         <div class="form__group">
           <label for="rsvp-email" class="form__label">Email</label>
-          <input type="email" id="rsvp-email" name="email" class="form__input"
-            placeholder="Opcional, para enviarte detalles"
-            pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" />
+          <input type="text" id="rsvp-email" name="email" class="form__input"
+            placeholder="Opcional, para enviarte detalles" />
         </div>
 
         <div class="form__divider">Asistencia</div>
@@ -431,7 +430,7 @@
       });
 
       /* ── Envío real ── */
-      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxtDHvk5JICh5KNEcIiy4108XMI6zCoKxBGfARapAMF3bOQ2P3rKJuMRATyH49yy7B_/exec';
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdgK54NZaN_LEYWn_nRoGIB11KfB99Sy5pbXaSqgR_YkbLF-5CdlfDe7Vhv0JQcvX-/exec';
 
       form.addEventListener('submit', async e => {
         e.preventDefault();
@@ -474,7 +473,6 @@
           ninos: asiste ? fd.get('ninos') || '' : '',
           nombres_ninos: asiste ? fd.get('nombres_ninos') || '' : '',
           alergias: asiste ? fd.get('alergias') || '' : '',
-          menus_infantiles: asiste ? fd.get('menus_infantiles') || '0' : '0',
           autobus: asiste ? fd.get('autobus') || '' : '',
           plazas_bus: asiste ? fd.get('plazas_bus') || '' : '',
           punto_bus: asiste ? fd.get('punto_bus') || '' : '',
@@ -488,35 +486,36 @@
           console.log('📤 Enviando a:', APPS_SCRIPT_URL);
           console.log('📦 Payload:', JSON.stringify(payload, null, 2));
 
-          const res = await fetch(APPS_SCRIPT_URL, {
+          const sendRequest = () => fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
+            mode: 'no-cors'
           });
 
-          console.log('📡 Status HTTP:', res.status);
-
-          const text = await res.text();
-          console.log('📄 Respuesta cruda:', text);
-
-          let result;
-          try {
-            result = JSON.parse(text);
-            console.log('✅ JSON parseado:', result);
-          } catch (e) {
-            console.error('❌ No es JSON válido:', text);
-            throw new Error('El servidor no devolvió JSON válido: ' + text.substring(0, 200));
+          // Intentar hasta 3 veces con 1s de espera entre intentos
+          let intentos = 0;
+          const maxIntentos = 3;
+          while (intentos < maxIntentos) {
+            try {
+              await sendRequest();
+              console.log(`✅ Petición enviada (intento ${intentos + 1})`);
+              break;
+            } catch (retryErr) {
+              intentos++;
+              console.warn(`⚠️ Intento ${intentos} fallido:`, retryErr.message);
+              if (intentos < maxIntentos) {
+                await new Promise(r => setTimeout(r, 1000));
+              } else {
+                throw retryErr;
+              }
+            }
           }
 
-          if (result.success) {
-            form.style.display = 'none';
-            document.getElementById('rsvp-success').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          } else {
-            showError(result.message || 'Ha ocurrido un error. Inténtalo de nuevo.');
-            btn.textContent = btnTexto;
-            btn.disabled = false;
-          }
+          form.style.display = 'none';
+          document.getElementById('rsvp-success').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
         } catch (err) {
           console.error('❌ ERROR DE FETCH:', err);
           showError('Error de conexión: ' + err.message + '. Ver consola (F12) para más detalles.');
