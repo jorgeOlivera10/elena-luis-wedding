@@ -38,6 +38,16 @@
       margin-right: 0;
     }
 
+    .nav__links a {
+      color: var(--burgundy) !important;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav__links a:hover {
+      color: var(--gold) !important;
+    }
+
     main {
       flex-grow: 1;
       display: flex;
@@ -81,13 +91,13 @@
 
 <body>
 
-  <nav class="nav">
+  <nav class="nav nav--scrolled">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo">
         <img src="images/Logo.svg?v=2" alt="Elena & Luis Logo" class="nav__logo-img" />
       </a>
       <ul class="nav__links" id="nav-links">
-        <li><a href="index.html">Volver a la web principal</a></li>
+        <li><a href="index.html">← Inicio</a></li>
       </ul>
     </div>
   </nav>
