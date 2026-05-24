@@ -474,6 +474,7 @@
           ninos: asiste ? fd.get('ninos') || '' : '',
           nombres_ninos: asiste ? fd.get('nombres_ninos') || '' : '',
           alergias: asiste ? fd.get('alergias') || '' : '',
+          menus_infantiles: asiste ? fd.get('menus_infantiles') || '0' : '0',
           autobus: asiste ? fd.get('autobus') || '' : '',
           plazas_bus: asiste ? fd.get('plazas_bus') || '' : '',
           punto_bus: asiste ? fd.get('punto_bus') || '' : '',
@@ -484,8 +485,8 @@
         };
 
         try {
-          console.log('Enviando a:', APPS_SCRIPT_URL);
-          console.log('Payload:', payload);
+          console.log('📤 Enviando a:', APPS_SCRIPT_URL);
+          console.log('📦 Payload:', JSON.stringify(payload, null, 2));
 
           const res = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
@@ -493,14 +494,19 @@
             body: JSON.stringify(payload)
           });
 
-          console.log('Respuesta status:', res.status);
+          console.log('📡 Status HTTP:', res.status);
 
-          if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
+          const text = await res.text();
+          console.log('📄 Respuesta cruda:', text);
+
+          let result;
+          try {
+            result = JSON.parse(text);
+            console.log('✅ JSON parseado:', result);
+          } catch (e) {
+            console.error('❌ No es JSON válido:', text);
+            throw new Error('El servidor no devolvió JSON válido: ' + text.substring(0, 200));
           }
-
-          const result = await res.json();
-          console.log('Resultado:', result);
 
           if (result.success) {
             form.style.display = 'none';
@@ -512,8 +518,8 @@
             btn.disabled = false;
           }
         } catch (err) {
-          console.error('Error detallado:', err);
-          showError('Error de conexión: ' + err.message + '. Verifica que el backend esté desplegado correctamente.');
+          console.error('❌ ERROR DE FETCH:', err);
+          showError('Error de conexión: ' + err.message + '. Ver consola (F12) para más detalles.');
           btn.textContent = btnTexto;
           btn.disabled = false;
         }
