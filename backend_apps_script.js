@@ -11,7 +11,7 @@
  */
 
 const SHEET_NAME = "Respuestas"; // Nombre de la pestaña de tu Google Sheet
-const ALLOWED_ORIGIN = "https://entreviñasymontañas.com"; // Tu dominio real (cambiar si usas otro)
+const ALLOWED_ORIGIN = "*"; // Acepta cualquier origen
 
 // Opcional: Nombre de pestaña para Rate Limiting
 const RATE_LIMIT_SHEET_NAME = "RateLimit";
