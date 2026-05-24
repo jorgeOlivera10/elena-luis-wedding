@@ -11,23 +11,14 @@
  */
 
 const SHEET_NAME = "Respuestas"; // Nombre de la pestaña de tu Google Sheet
-const ALLOWED_ORIGIN = "https://elenayluis.com"; // Tu dominio real (cambiar si usas otro)
-const ALLOWED_DOMAIN_2 = "https://entreviñasymontañas.com"; // Dominio alternativo
+const ALLOWED_ORIGIN = "https://entreviñasymontañas.com"; // Tu dominio real
 
 // Opcional: Nombre de pestaña para Rate Limiting
 const RATE_LIMIT_SHEET_NAME = "RateLimit";
 
 function doPost(e) {
   try {
-    // 1. Validar Headers CORS / Origen
-    // Google Apps Script no permite leer headers HTTP libremente, pero podemos intentar forzar 
-    // la validación en el cliente o retornar headers seguros.
-    const headers = {
-      "Access-Control-Allow-Origin": "*", // Apps Script fuerza esto a menudo, pero podemos devolver un JSON limpio.
-      "Content-Type": "application/json"
-    };
-
-    // 2. Parsear los datos del formulario entrante
+    // 1. Parsear los datos del formulario entrante
     if (!e || !e.postData || !e.postData.contents) {
       return errorResponse("Sin datos");
     }
@@ -89,7 +80,7 @@ function doPost(e) {
       sanitize(data.acompanante),
       sanitize(data.nombre_acompanante),
       numNinos,
-      sanitize(data.edades_ninos),
+      sanitize(data.nombres_ninos), // Nombres y edades de los niños
       sanitize(data.alergias),
       parseInt(data.menus_infantiles) || 0,
       sanitize(data.autobus),
@@ -153,20 +144,16 @@ function isRateLimited(nombre, email) {
   if (data.length <= 1) return false;
 
   const now = new Date();
-  const timeWindowStr = new Date(now.getTime() - 5 * 60000); // 5 minutos
+  const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000); // 30 minutos
 
-  let recentRequests = 0;
-  for (let i = 1; i < data.length; i++) {
-    let reqDate = new Date(data[i][0]);
-    if (reqDate > timeWindowStr) {
-      if ((nombre && data[i][1] === nombre) || (email && data[i][2] === email)) {
-        recentRequests++;
-      }
-    }
-  }
+  const recentRequests = data
+    .slice(1)
+    .filter(row => new Date(row[0]) > thirtyMinutesAgo)
+    .filter(row => (nombre && row[1] === nombre) || (email && row[2] === email))
+    .length;
 
-  // Si ha enviado más de 3 peticiones en 5 minutos con el mismo nombre/email, bloqueamos
-  return (recentRequests >= 3);
+  // Si ha enviado más de 3 peticiones en 30 minutos con el mismo nombre/email, bloqueamos
+  return recentRequests >= 3;
 }
 
 // Para evitar problemas con métodos GET o preflight OPTIONS

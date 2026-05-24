@@ -190,10 +190,10 @@
             </span>
           </div>
 
-          <div class="form__group" id="field-edades-ninos" style="display: none;">
-            <label for="rsvp-kids-ages" class="form__label">Edades aproximadas de los niños</label>
-            <input type="text" id="rsvp-kids-ages" name="edades_ninos" class="form__input"
-              placeholder="Ej: 3 y 7 años" />
+          <div class="form__group" id="field-nombres-ninos" style="display: none;">
+            <label for="rsvp-kids-names" class="form__label">Nombres y edades de los niños</label>
+            <input type="text" id="rsvp-kids-names" name="nombres_ninos" class="form__input"
+              placeholder="Ej: Juan (3 años), María (7 años)" />
           </div>
 
           <div class="form__divider">Menú</div>
@@ -352,7 +352,7 @@
       const conditionalFields = document.getElementById('rsvp-conditional-fields');
       const notAttendingFields = document.getElementById('rsvp-not-attending-fields');
       const companionNameField = document.getElementById('field-nombre-acompanante');
-      const kidsAgesField = document.getElementById('field-edades-ninos');
+      const kidsNamesField = document.getElementById('field-nombres-ninos');
       const kidsMenuField = document.getElementById('field-menu-infantil');
       const busDetailsFields = document.getElementById('fields-bus-details');
 
@@ -375,7 +375,7 @@
       if (kidsInput) {
         kidsInput.addEventListener('input', e => {
           const show = (parseInt(e.target.value) || 0) > 0;
-          kidsAgesField.style.display = show ? 'block' : 'none';
+          kidsNamesField.style.display = show ? 'block' : 'none';
           kidsMenuField.style.display = show ? 'block' : 'none';
         });
       }
@@ -428,7 +428,7 @@
           acompanante: asiste ? fd.get('acompanante') || '' : '',
           nombre_acompanante: asiste ? fd.get('nombre_acompanante') || '' : '',
           ninos: asiste ? fd.get('ninos') || '' : '',
-          edades_ninos: asiste ? fd.get('edades_ninos') || '' : '',
+          nombres_ninos: asiste ? fd.get('nombres_ninos') || '' : '',
           alergias: asiste ? fd.get('alergias') || '' : '',
           menus_infantiles: asiste ? fd.get('menus_infantiles') || '' : '',
           autobus: asiste ? fd.get('autobus') || '' : '',
