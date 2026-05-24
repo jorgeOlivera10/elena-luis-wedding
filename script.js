@@ -23,7 +23,7 @@
 
 
   /* ── Countdown Timer ────────────────── */
-  const WEDDING_DATE = new Date('2026-10-17T12:00:00+02:00');
+  const WEDDING_DATE = new Date('2026-10-17T13:00:00+02:00');
 
   function updateCountdown() {
     const now = new Date();
