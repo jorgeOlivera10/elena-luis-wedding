@@ -11,8 +11,7 @@
  */
 
 const SHEET_NAME = "Respuestas"; // Nombre de la pestaña de tu Google Sheet
-const ALLOWED_ORIGIN = "https://elenayluis.com"; // Tu dominio real (cambiar si usas otro)
-const ALLOWED_DOMAIN_2 = "https://entreviñasymontañas.com"; // Dominio alternativo
+const ALLOWED_ORIGIN = "https://entreviñasymontañas.com"; // Tu dominio real (cambiar si usas otro)
 
 // Opcional: Nombre de pestaña para Rate Limiting
 const RATE_LIMIT_SHEET_NAME = "RateLimit";
@@ -46,12 +45,6 @@ function doPost(e) {
     }
     if (!data.asistencia) {
       return errorResponse("Debe confirmar asistencia.");
-    }
-
-    // Validación de excesos (ej: no más de 10 niños)
-    const numNinos = parseInt(data.ninos) || 0;
-    if (numNinos > 10 || numNinos < 0) {
-      return errorResponse("Cantidad de acompañantes infantiles inválida.");
     }
 
     // Validación de formato de email (regex en servidor)
@@ -88,10 +81,8 @@ function doPost(e) {
       data.asistencia,
       sanitize(data.acompanante),
       sanitize(data.nombre_acompanante),
-      numNinos,
-      sanitize(data.edades_ninos),
+      sanitize(data.nombres_ninos), // Nombres de los niños
       sanitize(data.alergias),
-      parseInt(data.menus_infantiles) || 0,
       sanitize(data.autobus),
       parseInt(data.plazas_bus) || 0,
       sanitize(data.punto_bus),
@@ -119,14 +110,35 @@ function errorResponse(message) {
   return ContentService.createTextOutput(JSON.stringify({
     success: false,
     message: message
-  })).setMimeType(ContentService.MimeType.JSON);
+  })).setMimeType(ContentService.MimeType.JSON)
+  .setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
 }
 
 /** Retorna un JSON de éxito al JS del navegador */
 function successResponse() {
   return ContentService.createTextOutput(JSON.stringify({
     success: true
-  })).setMimeType(ContentService.MimeType.JSON);
+  })).setMimeType(ContentService.MimeType.JSON)
+  .setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
+}
+
+/** Maneja peticiones OPTIONS (preflight CORS) */
+function doOptions() {
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type'
+    });
 }
 
 /** Sistema de Rate Limiting Básico en Apps Script */
@@ -148,25 +160,67 @@ function isRateLimited(nombre, email) {
   let rateSheet = ss.getSheetByName(RATE_LIMIT_SHEET_NAME);
   if (!rateSheet) return false;
 
-  // Borrar registros antiguos para no llenar la pestaña (ej: más de 20 min de antigüedad)
   const data = rateSheet.getDataRange().getValues();
   if (data.length <= 1) return false;
 
   const now = new Date();
-  const timeWindowStr = new Date(now.getTime() - 5 * 60000); // 5 minutos
+  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
-  let recentRequests = 0;
-  for (let i = 1; i < data.length; i++) {
-    let reqDate = new Date(data[i][0]);
-    if (reqDate > timeWindowStr) {
-      if ((nombre && data[i][1] === nombre) || (email && data[i][2] === email)) {
-        recentRequests++;
-      }
+  const recentRequests = data
+    .slice(1)
+    .filter(row => new Date(row[0]) > twentyFourHoursAgo)
+    .filter(row => (nombre && row[1] === nombre) || (email && row[2] === email))
+    .length;
+
+  return recentRequests >= 3;
+}
+
+/**
+ * Elimina registros de rate limiting con más de 24 horas de antigüedad.
+ * Ejecutar una vez al día mediante un trigger programado.
+ */
+function cleanOldRateLimitEntries() {
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  let rateSheet = ss.getSheetByName(RATE_LIMIT_SHEET_NAME);
+  if (!rateSheet) return;
+
+  const data = rateSheet.getDataRange().getValues();
+  if (data.length <= 1) return;
+
+  const now = new Date();
+  const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+  const rowsToDelete = [];
+  for (let i = data.length - 1; i >= 1; i--) {
+    const reqDate = new Date(data[i][0]);
+    if (reqDate < twentyFourHoursAgo) {
+      rowsToDelete.push(i + 1);
     }
   }
 
-  // Si ha enviado más de 3 peticiones en 5 minutos con el mismo nombre/email, bloqueamos
-  return (recentRequests >= 3);
+  rowsToDelete.forEach(rowIndex => rateSheet.deleteRow(rowIndex));
+}
+
+/**
+ * Crea un trigger diario para ejecutar cleanOldRateLimitEntries.
+ * Ejecutar esta función manualmente una vez en el editor de Apps Script.
+ */
+function createDailyTrigger() {
+  const triggers = ScriptApp.getProjectTriggers();
+  const existingTrigger = triggers.find(t => t.getHandlerFunction() === 'cleanOldRateLimitEntries');
+
+  if (existingTrigger) {
+    Logger.log('El trigger diario ya existe.');
+    return;
+  }
+
+  ScriptApp.newTrigger('cleanOldRateLimitEntries')
+    .timeBased()
+    .everyDays(1)
+    .atHour(3)
+    .create();
+
+  Logger.log('Trigger diario creado exitosamente. Se ejecutará todos los días a las 3 AM.');
 }
 
 // Para evitar problemas con métodos GET o preflight OPTIONS
