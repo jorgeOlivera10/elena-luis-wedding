@@ -253,6 +253,7 @@ a {
     gap: 1.6rem;
     box-shadow: -4px 0 20px rgba(0, 0, 0, .1);
     transition: right var(--transition);
+    z-index: 1000;
   }
 
   .nav__links.open {
@@ -261,6 +262,11 @@ a {
 
   .nav__links a {
     font-size: 1.1rem;
+    color: var(--burgundy);
+  }
+
+  .nav__links a:hover {
+    color: var(--mustard);
   }
 }
 
