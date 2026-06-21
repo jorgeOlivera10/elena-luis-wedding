@@ -910,7 +910,8 @@ a {
 }
 
 .gallery__item--panorama img {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 3 / 2;
+  max-height: unset;
 }
 
 .gallery__item--soft img {
