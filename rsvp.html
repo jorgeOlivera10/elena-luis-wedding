@@ -145,7 +145,7 @@
 
         <div class="form__group">
           <label for="rsvp-email" class="form__label">Email</label>
-          <input type="text" id="rsvp-email" name="email" class="form__input"
+          <input type="email" id="rsvp-email" name="email" class="form__input"
             placeholder="Opcional, para enviarte detalles" />
         </div>
 
@@ -210,13 +210,13 @@
           <div class="form__group">
             <label for="rsvp-allergies" class="form__label">Indica la persona y sus alergias o intolerancias</label>
             <textarea id="rsvp-allergies" name="alergias" class="form__textarea" rows="2"
-              placeholder="Ej: María: celiaquía; Luis: alergia a los frutos secos"></textarea>
+              placeholder="Ej: María: celiaqía; Luis: alergia a los frutos secos"></textarea>
           </div>
 
           <div class="form__divider">Transporte y Alojamiento</div>
 
           <div class="form__group">
-            <label class="form__label">¿Usaréis el servicio de autobús?</label>
+            <label class="form__label">¿Usáreis el servicio de autobús?</label>
             <div class="form__radio-group">
               <label class="form__radio">
                 <input type="radio" name="autobus" value="no" />
@@ -317,7 +317,7 @@
         </div>
 
         <p class="form__privacy">
-          <strong>Privacidad (RGPD):</strong> Los datos de carácter personal que facilitas se usarán ÚNICAMENTE para
+          <strong>Privacidad (RGPD):</strong> Los datos de carácter personal que facilitas se usarán Úicamente para
           fines logísticos y de organización de la boda de Elena y Luis. No serán cedidos a terceros y serán
           eliminados permanentemente 30 días después del evento.
         </p>
@@ -366,7 +366,7 @@
         <div style="background: linear-gradient(135deg, #fff8e7 0%, #fff3cd 100%); border-left: 4px solid var(--mustard); 
                     padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2rem; text-align: left;">
           <p style="color: var(--text); font-size: 0.9rem; margin: 0;">
-            <strong style="color: var(--burgundy);">📅 Recuerda:</strong><br>
+            <strong style="color: var(--burgundy);">&#128197; Recuerda:</strong><br>
             <span id="event-reminder">17 de octubre de 2026 a las 13:00 h<br>Bodega Laus, Barbastro</span>
           </p>
         </div>
@@ -493,9 +493,6 @@
         };
 
         try {
-          console.log('📤 Enviando a:', APPS_SCRIPT_URL);
-          console.log('📦 Payload:', JSON.stringify(payload, null, 2));
-
           const sendRequest = () => fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
@@ -509,7 +506,6 @@
           while (intentos < maxIntentos) {
             try {
               await sendRequest();
-              console.log(`✅ Petición enviada (intento ${intentos + 1})`);
               break;
             } catch (retryErr) {
               intentos++;
@@ -525,6 +521,7 @@
           form.style.display = 'none';
           document.getElementById('rsvp-success').style.display = 'block';
           window.scrollTo({ top: 0, behavior: 'smooth' });
+          generateSummary(fd, asiste);
 
         } catch (err) {
           console.error('❌ ERROR DE FETCH:', err);
@@ -587,7 +584,7 @@
             </div>
             <div style="margin-bottom: 1rem;">
               <strong style="color: var(--burgundy);">Autobús:</strong> ${autobus}
-              ${puntoBus ? `<br><span style="margin-left: 1rem; color: var(--text-light);">📍 ${puntoBus}</span>` : ''}
+              ${puntoBus ? `<br><span style="margin-left: 1rem; color: var(--text-light);">&#128205; ${puntoBus}</span>` : ''}
             </div>
             <div style="margin-bottom: 1rem;">
               <strong style="color: var(--burgundy);">Alojamiento:</strong> ${alojamiento}
@@ -613,7 +610,6 @@
             `;
           }
         } else {
-          // Si no asiste
           if (fd.get('mensaje_no_asiste')) {
             html += `
               <div style="margin-bottom: 1rem;">
