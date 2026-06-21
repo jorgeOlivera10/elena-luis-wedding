@@ -23,7 +23,7 @@
 
 
   /* ── Countdown Timer ────────────────── */
-  const WEDDING_DATE = new Date('2026-10-17T12:00:00+02:00');
+  const WEDDING_DATE = new Date('2026-10-17T13:00:00+02:00');
 
   function updateCountdown() {
     const now = new Date();
@@ -139,7 +139,7 @@
         title: 'Boda Elena y Luis',
         location: 'Bodega Laus, Barbastro, Somontano',
         description: '¡Nos casamos! Acompáñanos en este día tan especial.',
-        startDate: '20261017T100000Z',
+        startDate: '20261017T110000Z',
         endDate: '20261018T040000Z'
       };
 
