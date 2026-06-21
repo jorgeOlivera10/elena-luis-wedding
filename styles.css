@@ -3,7 +3,7 @@
    Rustic Vineyard Palette
    ═══════════════════════════════════════════ */
 
-/* ── Custom Properties ─────────────────── */
+/* ── Custom Properties ───────────────────── */
 :root {
   /* Editorial Palette - Sophisticated & Warm */
   --olive: #586432;
@@ -21,6 +21,9 @@
   --white: #FFFFFF;
   --text: #2D2926;
   --text-light: #635D5A;
+  --border: #E9E0D2;
+  --gold: #D4A373;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 
   /* Typography - Editorial Pairings */
   --ff-heading: 'Cormorant Garamond', serif;
@@ -261,7 +264,7 @@ a {
   }
 }
 
-/* ── Hero ──────────────────────────────── */
+/* ── Hero ───────────────────────────────── */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -550,7 +553,7 @@ a {
   }
 }
 
-/* ── Details / Cards ───────────────────── */
+/* ── Details / Cards ─────────────────────── */
 .details {
   background: var(--cream-dark);
 }
@@ -622,7 +625,7 @@ a {
 
 
 
-/* ── Premium Transport & Timeline ──────────────── */
+/* ── Premium Transport & Timeline ────────────────── */
 .transport-grid {
   max-width: 600px;
   margin: 0 auto 3rem;
@@ -807,7 +810,7 @@ a {
   }
 }
 
-/* ── Details Layout Mobile ─────────── */
+/* ── Details Layout Mobile ────────────────── */
 @media (max-width: 1024px) {
   .details__main-cards {
     grid-template-columns: 1fr;
@@ -900,6 +903,10 @@ a {
   aspect-ratio: 4 / 5;
 }
 
+.gallery__item--panorama img {
+  aspect-ratio: 16 / 9;
+}
+
 .gallery__item--soft img {
   object-position: center center;
 }
@@ -960,7 +967,7 @@ a {
   }
 }
 
-/* ── RSVP Section ──────────────────────── */
+/* ── RSVP Section ───────────────────────── */
 .rsvp {
   background: var(--cream-dark);
 }
@@ -1092,7 +1099,7 @@ a {
   }
 }
 
-/* ── FAQ / Accordion ───────────────────── */
+/* ── FAQ / Accordion ─────────────────────── */
 .accordion__item {
   border-bottom: 1px solid var(--beige);
 }
@@ -1143,7 +1150,7 @@ details[open] .accordion__header::after {
   line-height: 1.7;
 }
 
-/* ── Contact ───────────────────────────── */
+/* ── Contact ────────────────────────────── */
 .contact {
   text-align: center;
 }
@@ -1181,7 +1188,7 @@ details[open] .accordion__header::after {
   opacity: .65;
 }
 
-/* ── Scroll Reveal ─────────────────────── */
+/* ── Scroll Reveal ───────────────────────── */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1193,7 +1200,7 @@ details[open] .accordion__header::after {
   transform: translateY(0);
 }
 
-/* ── Utilities ─────────────────────────── */
+/* ── Utilities ───────────────────────────── */
 @media (max-width: 480px) {
   .hero__title {
     font-size: 2.6rem;
@@ -1680,7 +1687,7 @@ details[open] .accordion__header::after {
   }
 
   .bus-card__time {
-    grid-column: 2;
+    grid-column: 1;
     justify-content: flex-start;
     width: auto;
     text-align: left;
