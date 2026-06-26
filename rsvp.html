@@ -4,12 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src *;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Confirmar Asistencia — Elena & Luis</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style"
@@ -26,41 +24,16 @@
       flex-direction: column;
       min-height: 100vh;
     }
-
     .nav {
       position: relative;
       background: var(--cream);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
     }
-
-    .nav__links {
-      margin-left: auto;
-      margin-right: 0;
-    }
-
-    .nav__links a {
-      color: var(--burgundy) !important;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .nav__links a:hover {
-      color: var(--gold) !important;
-    }
-
-    main {
-      flex-grow: 1;
-      display: flex;
-      align-items: center;
-      padding: 4rem 1rem;
-    }
-
-    .rsvp-page {
-      width: 100%;
-      max-width: 650px;
-      margin: 0 auto;
-    }
-
+    .nav__links { margin-left: auto; margin-right: 0; }
+    .nav__links a { color: var(--burgundy) !important; font-size: 0.9rem; font-weight: 500; }
+    .nav__links a:hover { color: var(--gold) !important; }
+    main { flex-grow: 1; display: flex; align-items: center; padding: 4rem 1rem; }
+    .rsvp-page { width: 100%; max-width: 650px; margin: 0 auto; }
     .back-link {
       display: inline-flex;
       align-items: center;
@@ -69,15 +42,8 @@
       font-weight: 500;
       transition: color var(--transition);
     }
-
-    .back-link:hover {
-      color: var(--burgundy);
-    }
-
-    .back-link svg {
-      margin-right: 8px;
-    }
-
+    .back-link:hover { color: var(--burgundy); }
+    .back-link svg { margin-right: 8px; }
     .form__divider {
       margin: 2rem 0 1.5rem;
       border-top: 1px solid var(--beige);
@@ -85,6 +51,36 @@
       font-family: var(--ff-heading);
       font-size: 1.3rem;
       color: var(--burgundy);
+    }
+    /* Hearts rating */
+    .form__hearts-rating {
+      display: flex;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+    .form__heart {
+      cursor: pointer;
+      position: relative;
+      line-height: 1;
+    }
+    .form__heart input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+    .form__heart span {
+      display: block;
+      font-size: 2.2rem;
+      color: #ddd;
+      transition: color 0.15s, transform 0.15s;
+      user-select: none;
+    }
+    .form__heart.selected span,
+    .form__heart.hovered span {
+      color: var(--burgundy);
+      transform: scale(1.2);
     }
   </style>
 </head>
@@ -124,29 +120,24 @@
 
       <form id="rsvp-page-form" class="form reveal" novalidate>
 
-        <!-- Campo trampa anti-bot -->
-        <div style="position: absolute; opacity: 0; top: 0; left: 0; height: 0; width: 0; z-index: -1;"
-          aria-hidden="true">
+        <div style="position: absolute; opacity: 0; top: 0; left: 0; height: 0; width: 0; z-index: -1;" aria-hidden="true">
           <label for="honeypot">Website</label>
           <input type="text" id="honeypot" name="honeypot" tabindex="-1" autocomplete="off" />
         </div>
 
         <div class="form__group">
           <label for="rsvp-name" class="form__label">Nombre y apellidos *</label>
-          <input type="text" id="rsvp-name" name="nombre" class="form__input" required
-            placeholder="Como aparece en tu invitación" />
+          <input type="text" id="rsvp-name" name="nombre" class="form__input" required placeholder="Como aparece en tu invitación" />
         </div>
 
         <div class="form__group">
           <label for="rsvp-phone" class="form__label">Teléfono</label>
-          <input type="tel" id="rsvp-phone" name="telefono" class="form__input"
-            placeholder="Opcional, para avisos importantes" />
+          <input type="tel" id="rsvp-phone" name="telefono" class="form__input" placeholder="Opcional, para avisos importantes" />
         </div>
 
         <div class="form__group">
           <label for="rsvp-email" class="form__label">Email</label>
-          <input type="email" id="rsvp-email" name="email" class="form__input"
-            placeholder="Opcional, para enviarte detalles" />
+          <input type="email" id="rsvp-email" name="email" class="form__input" placeholder="Opcional, para enviarte detalles" />
         </div>
 
         <div class="form__divider">Asistencia</div>
@@ -173,36 +164,25 @@
           <div class="form__group">
             <label class="form__label">¿Vendrás con acompañante?</label>
             <div class="form__radio-group">
-              <label class="form__radio">
-                <input type="radio" name="acompanante" value="si" />
-                <span>Sí</span>
-              </label>
-              <label class="form__radio">
-                <input type="radio" name="acompanante" value="no" />
-                <span>No</span>
-              </label>
+              <label class="form__radio"><input type="radio" name="acompanante" value="si" /><span>Sí</span></label>
+              <label class="form__radio"><input type="radio" name="acompanante" value="no" /><span>No</span></label>
             </div>
           </div>
 
           <div class="form__group" id="field-nombre-acompanante" style="display: none;">
             <label for="rsvp-companion-name" class="form__label">Nombre del acompañante</label>
-            <input type="text" id="rsvp-companion-name" name="nombre_acompanante" class="form__input"
-              placeholder="Nombre completo" />
+            <input type="text" id="rsvp-companion-name" name="nombre_acompanante" class="form__input" placeholder="Nombre completo" />
           </div>
 
           <div class="form__group">
             <label for="rsvp-kids" class="form__label">¿Asistirán niños? Indícanos cuántos</label>
-            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0"
-              placeholder="0" />
-            <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">
-              Deja en blanco o 0 si no vienen niños
-            </span>
+            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0" placeholder="0" />
+            <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">Deja en blanco o 0 si no vienen niños</span>
           </div>
 
           <div class="form__group" id="field-nombres-ninos" style="display: none;">
             <label for="rsvp-kids-names" class="form__label">Nombres de los niños (indica nombre y edad aproximada)</label>
-            <input type="text" id="rsvp-kids-names" name="nombres_ninos" class="form__input"
-              placeholder="Ej: Martín (5 años), Julia (2 años)" />
+            <input type="text" id="rsvp-kids-names" name="nombres_ninos" class="form__input" placeholder="Ej: Martín (5 años), Julia (2 años)" />
           </div>
 
           <div class="form__divider">Menú</div>
@@ -210,50 +190,31 @@
           <div class="form__group">
             <label for="rsvp-allergies" class="form__label">Indica la persona y sus alergias o intolerancias</label>
             <textarea id="rsvp-allergies" name="alergias" class="form__textarea" rows="2"
-              placeholder="Ej: María: celiaqía; Luis: alergia a los frutos secos"></textarea>
+              placeholder="Ej: María: celiaquía; Luis: alergia a los frutos secos"></textarea>
           </div>
 
           <div class="form__divider">Transporte y Alojamiento</div>
 
           <div class="form__group">
-            <label class="form__label">¿Usaréis el servicio de autobús?</label>
+            <label class="form__label">¿Usáreis el servicio de autobús?</label>
             <div class="form__radio-group">
-              <label class="form__radio">
-                <input type="radio" name="autobus" value="no" />
-                <span>Iremos con nuestro coche</span>
-              </label>
-              <label class="form__radio">
-                <input type="radio" name="autobus" value="ida" />
-                <span>Solo ida</span>
-              </label>
-              <label class="form__radio">
-                <input type="radio" name="autobus" value="vuelta" />
-                <span>Solo vuelta</span>
-              </label>
-              <label class="form__radio">
-                <input type="radio" name="autobus" value="ida_y_vuelta" />
-                <span>Ida y vuelta</span>
-              </label>
+              <label class="form__radio"><input type="radio" name="autobus" value="no" /><span>Iremos con nuestro coche</span></label>
+              <label class="form__radio"><input type="radio" name="autobus" value="ida" /><span>Solo ida</span></label>
+              <label class="form__radio"><input type="radio" name="autobus" value="vuelta" /><span>Solo vuelta</span></label>
+              <label class="form__radio"><input type="radio" name="autobus" value="ida_y_vuelta" /><span>Ida y vuelta</span></label>
             </div>
           </div>
 
           <div id="fields-bus-details" style="display: none;">
             <div class="form__group">
               <label for="rsvp-bus-seats" class="form__label">¿Cuántas plazas de autobús necesitáis?</label>
-              <input type="number" id="rsvp-bus-seats" name="plazas_bus" class="form__input form__input--short" min="1"
-                placeholder="0" />
+              <input type="number" id="rsvp-bus-seats" name="plazas_bus" class="form__input form__input--short" min="1" placeholder="0" />
             </div>
             <div class="form__group">
               <label class="form__label">Punto de salida / llegada preferido</label>
               <div class="form__radio-group">
-                <label class="form__radio">
-                  <input type="radio" name="punto_bus" value="huesca" />
-                  <span>Huesca — Calle Teruel (parada Hermanitas) · 12:00 h</span>
-                </label>
-                <label class="form__radio">
-                  <input type="radio" name="punto_bus" value="barbastro" />
-                  <span>Barbastro — Colegio Pedro I · 12:30 h</span>
-                </label>
+                <label class="form__radio"><input type="radio" name="punto_bus" value="huesca" /><span>Huesca — Calle Teruel (parada Hermanitas) · 12:00 h</span></label>
+                <label class="form__radio"><input type="radio" name="punto_bus" value="barbastro" /><span>Barbastro — Colegio Pedro I · 12:30 h</span></label>
               </div>
             </div>
           </div>
@@ -261,25 +222,40 @@
           <div class="form__group">
             <label class="form__label">¿Necesitáis ayuda con el alojamiento?</label>
             <div class="form__radio-group">
-              <label class="form__radio">
-                <input type="radio" name="alojamiento" value="si" />
-                <span>Sí, enviadme opciones</span>
-              </label>
-              <label class="form__radio">
-                <input type="radio" name="alojamiento" value="no" />
-                <span>No, ya lo tenemos</span>
-              </label>
+              <label class="form__radio"><input type="radio" name="alojamiento" value="si" /><span>Sí, enviadme opciones</span></label>
+              <label class="form__radio"><input type="radio" name="alojamiento" value="no" /><span>No, ya lo tenemos</span></label>
             </div>
           </div>
 
           <div class="form__divider">Para terminar</div>
 
           <div class="form__group">
+            <label class="form__label">¿Cuántas ganas tienes de que llegue el gran día?</label>
+            <div class="form__hearts-rating" id="hearts-rating">
+              <label class="form__heart"><input type="radio" name="ganas" value="1" /><span>♥</span></label>
+              <label class="form__heart"><input type="radio" name="ganas" value="2" /><span>♥</span></label>
+              <label class="form__heart"><input type="radio" name="ganas" value="3" /><span>♥</span></label>
+              <label class="form__heart"><input type="radio" name="ganas" value="4" /><span>♥</span></label>
+              <label class="form__heart"><input type="radio" name="ganas" value="5" /><span>♥</span></label>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label for="rsvp-no-faltar" class="form__label">Algo que no puede faltar</label>
+            <input type="text" id="rsvp-no-faltar" name="no_puede_faltar" class="form__input" placeholder="¿Qué no puede faltar en una boda perfecta?" />
+          </div>
+
+          <div class="form__group">
+            <label for="rsvp-momento" class="form__label">Momento especial que ocurra</label>
+            <input type="text" id="rsvp-momento" name="momento_especial" class="form__input" placeholder="¿Qué momento especial te gustaría que ocurriera?" />
+          </div>
+
+          <div class="form__group">
             <label for="rsvp-song" class="form__label">Canción que te hará salir a la pista sí o sí</label>
             <input type="text" id="rsvp-song" name="cancion" class="form__input" placeholder="Título y artista" />
             <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;">
-              <a href="https://open.spotify.com/playlist/3yzPIh4z3CCPWv43q6dXfq?si=O6Ho2XI0RIm4RRXY83BOng&pi=HeIQA3ebRfWcN&pt=49a7ba4eca4f23e0d00112b38eee2363" 
-                 target="_blank" rel="noopener" 
+              <a href="https://open.spotify.com/playlist/3yzPIh4z3CCPWv43q6dXfq?si=O6Ho2XI0RIm4RRXY83BOng&pi=HeIQA3ebRfWcN&pt=49a7ba4eca4f23e0d00112b38eee2363"
+                 target="_blank" rel="noopener"
                  style="color: var(--olive); text-decoration: underline; display: inline-flex; align-items: center; gap: 0.3rem;">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="#1DB954">
                   <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -291,8 +267,7 @@
 
           <div class="form__group">
             <label for="rsvp-comments" class="form__label">¿Algún comentario o duda adicional?</label>
-            <textarea id="rsvp-comments" name="comentarios" class="form__textarea" rows="3"
-              placeholder="Te leemos..."></textarea>
+            <textarea id="rsvp-comments" name="comentarios" class="form__textarea" rows="3" placeholder="Te leemos..."></textarea>
           </div>
 
         </div>
@@ -302,83 +277,52 @@
           <div class="form__divider">Lo sentimos mucho</div>
           <div class="form__group">
             <label for="rsvp-message" class="form__label">¿Quieres dejarnos un mensaje?</label>
-            <textarea id="rsvp-message" name="mensaje_no_asiste" class="form__textarea" rows="3"
-              placeholder="Te echaremos de menos. Déjanos unas palabras si quieres..."></textarea>
+            <textarea id="rsvp-message" name="mensaje_no_asiste" class="form__textarea" rows="3" placeholder="Te echaremos de menos. Déjanos unas palabras si quieres..."></textarea>
           </div>
         </div>
 
         <div class="form__group" style="margin-top: 2rem;">
           <label class="form__radio" style="align-items: flex-start;">
             <input type="checkbox" name="confirmacion" required style="margin-top: 4px;" />
-            <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-light);">
-              Confirmo que mis datos son correctos y consiento su uso. *
-            </span>
+            <span style="font-size: 0.9rem; line-height: 1.5; color: var(--text-light);">Confirmo que mis datos son correctos y consiento su uso. *</span>
           </label>
         </div>
 
         <p class="form__privacy">
-          <strong>Privacidad (RGPD):</strong> Los datos de carácter personal que facilitas se usarán Úicamente para
+          <strong>Privacidad (RGPD):</strong> Los datos de carácter personal que facilitas se usarán únicamente para
           fines logísticos y de organización de la boda de Elena y Luis. No serán cedidos a terceros y serán
           eliminados permanentemente 30 días después del evento.
         </p>
 
-        <button type="submit" class="btn btn--primary form__submit" id="rsvp-submit">
-          Enviar respuesta
-        </button>
+        <button type="submit" class="btn btn--primary form__submit" id="rsvp-submit">Enviar respuesta</button>
 
       </form>
 
-      <!-- Mensaje de éxito con confirmación visual -->
       <div id="rsvp-success" class="rsvp__success" style="display:none; background: var(--white);
            border-radius: var(--radius); padding: 3rem 2rem; text-align: center; max-width: 600px; margin: 0 auto;">
-        <!-- Icono de éxito -->
-        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--olive) 0%, #7d8a4a 100%); 
-                    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-                    margin: 0 auto 1.5rem; box-shadow: 0 4px 15px rgba(96, 108, 56, 0.3);">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
+        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--olive) 0%, #7d8a4a 100%);
+                    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                    margin: 0 auto 1.5rem; box-shadow: 0 4px 15px rgba(96,108,56,0.3);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        
-        <h3 style="font-family: var(--ff-heading); font-size: 2rem; color: var(--burgundy); margin-bottom: 0.5rem;">
-          ¡Respuesta guardada!
-        </h3>
-        <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">
-          Muchísimas gracias por confirmarnos.
-        </p>
-
-        <!-- Resumen visual de la respuesta -->
-        <div id="confirmation-summary" style="background: var(--cream); border-radius: var(--radius); 
-             padding: 2rem; margin-bottom: 2rem; text-align: left;">
-          <h4 style="font-family: var(--ff-heading); font-size: 1.2rem; color: var(--burgundy); 
-                     margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid var(--border); 
-                     padding-bottom: 0.5rem;">
-            Resumen de tu confirmación
-          </h4>
-          
-          <div id="summary-content" style="color: var(--text); font-size: 0.95rem; line-height: 1.6;">
-            <!-- Se llena dinámicamente con JavaScript -->
-          </div>
+        <h3 style="font-family: var(--ff-heading); font-size: 2rem; color: var(--burgundy); margin-bottom: 0.5rem;">¡Respuesta guardada!</h3>
+        <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">Muchísimas gracias por confirmarnos.</p>
+        <div id="confirmation-summary" style="background: var(--cream); border-radius: var(--radius); padding: 2rem; margin-bottom: 2rem; text-align: left;">
+          <h4 style="font-family: var(--ff-heading); font-size: 1.2rem; color: var(--burgundy); margin-bottom: 1.5rem; text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Resumen de tu confirmación</h4>
+          <div id="summary-content" style="color: var(--text); font-size: 0.95rem; line-height: 1.6;"></div>
         </div>
-
-        <!-- Recordatorio importante -->
-        <div style="background: linear-gradient(135deg, #fff8e7 0%, #fff3cd 100%); border-left: 4px solid var(--mustard); 
-                    padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2rem; text-align: left;">
+        <div style="background: linear-gradient(135deg, #fff8e7 0%, #fff3cd 100%); border-left: 4px solid var(--mustard); padding: 1rem 1.5rem; border-radius: 0 8px 8px 0; margin-bottom: 2rem; text-align: left;">
           <p style="color: var(--text); font-size: 0.9rem; margin: 0;">
             <strong style="color: var(--burgundy);">&#128197; Recuerda:</strong><br>
-            <span id="event-reminder">17 de octubre de 2026 a las 13:00 h<br>Bodega Laus, Barbastro</span>
+            17 de octubre de 2026 a las 13:00 h<br>Bodega Laus, Barbastro
           </p>
         </div>
-
         <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
           <a href="index.html" class="btn btn--primary">Volver a la portada</a>
           <a href="#" onclick="window.print(); return false;" class="btn btn--outline" style="display: flex; align-items: center; gap: 0.5rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 6 2 18 2 18 9"></polyline>
-              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-              <rect x="6" y="14" width="12" height="8"></rect>
-            </svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
             Guardar PDF
           </a>
         </div>
@@ -390,7 +334,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-      /* ── Reveal ── */
       setTimeout(() => {
         document.querySelectorAll('.reveal').forEach(el => {
           el.style.opacity = '1';
@@ -399,7 +342,6 @@
         });
       }, 100);
 
-      /* ── Referencias ── */
       const form = document.getElementById('rsvp-page-form');
       const conditionalFields = document.getElementById('rsvp-conditional-fields');
       const notAttendingFields = document.getElementById('rsvp-not-attending-fields');
@@ -407,7 +349,6 @@
       const kidsNamesField = document.getElementById('field-nombres-ninos');
       const busDetailsFields = document.getElementById('fields-bus-details');
 
-      /* ── Lógica condicional ── */
       document.querySelectorAll('input[name="asistencia"]').forEach(r => {
         r.addEventListener('change', e => {
           const asiste = e.target.value === 'si';
@@ -427,9 +368,7 @@
         kidsInput.addEventListener('input', e => {
           const show = (parseInt(e.target.value) || 0) > 0;
           kidsNamesField.style.display = show ? 'block' : 'none';
-          if (!show) {
-            document.getElementById('rsvp-kids-names').value = '';
-          }
+          if (!show) document.getElementById('rsvp-kids-names').value = '';
         });
       }
 
@@ -439,7 +378,29 @@
         });
       });
 
-      /* ── Envío real ── */
+      // Hearts rating
+      const heartsContainer = document.getElementById('hearts-rating');
+      if (heartsContainer) {
+        const heartLabels = heartsContainer.querySelectorAll('.form__heart');
+        heartLabels.forEach((heart, index) => {
+          heart.addEventListener('click', () => {
+            heartLabels.forEach((h, i) => {
+              if (i <= index) h.classList.add('selected');
+              else h.classList.remove('selected');
+            });
+          });
+          heart.querySelector('span').addEventListener('mouseover', () => {
+            heartLabels.forEach((h, i) => {
+              if (i <= index) h.classList.add('hovered');
+              else h.classList.remove('hovered');
+            });
+          });
+        });
+        heartsContainer.addEventListener('mouseleave', () => {
+          heartLabels.forEach(h => h.classList.remove('hovered'));
+        });
+      }
+
       const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxdgK54NZaN_LEYWn_nRoGIB11KfB99Sy5pbXaSqgR_YkbLF-5CdlfDe7Vhv0JQcvX-/exec';
 
       form.addEventListener('submit', async e => {
@@ -487,6 +448,9 @@
           plazas_bus: asiste ? fd.get('plazas_bus') || '' : '',
           punto_bus: asiste ? fd.get('punto_bus') || '' : '',
           alojamiento: asiste ? fd.get('alojamiento') || '' : '',
+          ganas: asiste ? fd.get('ganas') || '' : '',
+          no_puede_faltar: asiste ? fd.get('no_puede_faltar') || '' : '',
+          momento_especial: asiste ? fd.get('momento_especial') || '' : '',
           cancion: asiste ? fd.get('cancion') || '' : '',
           comentarios: asiste ? fd.get('comentarios') || '' : '',
           mensaje_no_asiste: !asiste ? fd.get('mensaje_no_asiste') || '' : '',
@@ -500,21 +464,15 @@
             mode: 'no-cors'
           });
 
-          // Intentar hasta 3 veces con 1s de espera entre intentos
           let intentos = 0;
-          const maxIntentos = 3;
-          while (intentos < maxIntentos) {
+          while (intentos < 3) {
             try {
               await sendRequest();
               break;
             } catch (retryErr) {
               intentos++;
-              console.warn(`⚠️ Intento ${intentos} fallido:`, retryErr.message);
-              if (intentos < maxIntentos) {
-                await new Promise(r => setTimeout(r, 1000));
-              } else {
-                throw retryErr;
-              }
+              if (intentos < 3) await new Promise(r => setTimeout(r, 1000));
+              else throw retryErr;
             }
           }
 
@@ -524,14 +482,12 @@
           generateSummary(fd, asiste);
 
         } catch (err) {
-          console.error('❌ ERROR DE FETCH:', err);
-          showError('Error de conexión: ' + err.message + '. Ver consola (F12) para más detalles.');
+          showError('Error de conexión: ' + err.message);
           btn.textContent = btnTexto;
           btn.disabled = false;
         }
       });
 
-      /* ── Helpers error ── */
       function showError(msg) {
         let el = document.getElementById('form-error-msg');
         if (!el) {
@@ -549,76 +505,33 @@
         if (el) el.textContent = '';
       }
 
-      /* ── Generar resumen visual ── */
       function generateSummary(fd, asiste) {
         const summaryDiv = document.getElementById('summary-content');
         if (!summaryDiv) return;
-
         const nombre = fd.get('nombre') || 'Invitado';
-        const asistencia = asiste ? '✅ Sí asistiré' : '❌ No podré asistir';
-        
-        let html = `
-          <div style="margin-bottom: 1rem;">
-            <strong style="color: var(--burgundy);">Invitado:</strong> ${nombre}
-          </div>
-          <div style="margin-bottom: 1rem;">
-            <strong style="color: var(--burgundy);">Asistencia:</strong> ${asistencia}
-          </div>
-        `;
-
+        const asistenciaTexto = asiste ? '✅ Sí asistiré' : '❌ No podré asistir';
+        let html = `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Invitado:</strong> ${nombre}</div><div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Asistencia:</strong> ${asistenciaTexto}</div>`;
         if (asiste) {
           const acompanante = fd.get('acompanante') === 'si' ? (fd.get('nombre_acompanante') || 'Sí (sin nombre)') : 'No';
           const ninos = fd.get('ninos') || '0';
           const autobus = fd.get('autobus') || 'No necesito';
-          const puntoBus = fd.get('punto_bus') === 'huesca' ? 'Huesca — Calle Teruel' : 
-                           fd.get('punto_bus') === 'barbastro' ? 'Barbastro — Colegio Pedro I' : '';
+          const puntoBus = fd.get('punto_bus') === 'huesca' ? 'Huesca — Calle Teruel' : fd.get('punto_bus') === 'barbastro' ? 'Barbastro — Colegio Pedro I' : '';
           const alojamiento = fd.get('alojamiento') === 'si' ? 'Sí, necesito ayuda' : 'No, ya lo tengo';
+          const ganas = fd.get('ganas') ? '♥'.repeat(parseInt(fd.get('ganas'))) : '-';
           const cancion = fd.get('cancion') || 'No especificada';
-
-          html += `
-            <div style="margin-bottom: 1rem;">
-              <strong style="color: var(--burgundy);">Acompañante:</strong> ${acompanante}
-            </div>
-            <div style="margin-bottom: 1rem;">
-              <strong style="color: var(--burgundy);">Niños:</strong> ${ninos}
-            </div>
-            <div style="margin-bottom: 1rem;">
-              <strong style="color: var(--burgundy);">Autobús:</strong> ${autobus}
-              ${puntoBus ? `<br><span style="margin-left: 1rem; color: var(--text-light);">&#128205; ${puntoBus}</span>` : ''}
-            </div>
-            <div style="margin-bottom: 1rem;">
-              <strong style="color: var(--burgundy);">Alojamiento:</strong> ${alojamiento}
-            </div>
-            <div style="margin-bottom: 1rem;">
-              <strong style="color: var(--burgundy);">Canción:</strong> ${cancion}
-            </div>
-          `;
-
-          if (fd.get('alergias')) {
-            html += `
-              <div style="margin-bottom: 1rem;">
-                <strong style="color: var(--burgundy);">Alergias:</strong> ${fd.get('alergias')}
-              </div>
-            `;
-          }
-
-          if (fd.get('comentarios')) {
-            html += `
-              <div style="margin-bottom: 1rem;">
-                <strong style="color: var(--burgundy);">Comentarios:</strong> ${fd.get('comentarios')}
-              </div>
-            `;
-          }
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Acompañante:</strong> ${acompanante}</div>`;
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Niños:</strong> ${ninos}</div>`;
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Autobús:</strong> ${autobus}${puntoBus ? '<br><span style="margin-left:1rem;color:var(--text-light);">&#128205; ' + puntoBus + '</span>' : ''}</div>`;
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Alojamiento:</strong> ${alojamiento}</div>`;
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Ganas:</strong> <span style="color:var(--burgundy);font-size:1.2rem;">${ganas}</span></div>`;
+          if (fd.get('no_puede_faltar')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">No puede faltar:</strong> ${fd.get('no_puede_faltar')}</div>`;
+          if (fd.get('momento_especial')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Momento especial:</strong> ${fd.get('momento_especial')}</div>`;
+          html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Canción:</strong> ${cancion}</div>`;
+          if (fd.get('alergias')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Alergias:</strong> ${fd.get('alergias')}</div>`;
+          if (fd.get('comentarios')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Comentarios:</strong> ${fd.get('comentarios')}</div>`;
         } else {
-          if (fd.get('mensaje_no_asiste')) {
-            html += `
-              <div style="margin-bottom: 1rem;">
-                <strong style="color: var(--burgundy);">Mensaje:</strong> ${fd.get('mensaje_no_asiste')}
-              </div>
-            `;
-          }
+          if (fd.get('mensaje_no_asiste')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Mensaje:</strong> ${fd.get('mensaje_no_asiste')}</div>`;
         }
-
         summaryDiv.innerHTML = html;
       }
 
@@ -626,5 +539,4 @@
   </script>
 
 </body>
-
 </html>
