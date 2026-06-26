@@ -3,7 +3,7 @@
    Rustic Vineyard Palette
    ═══════════════════════════════════════════ */
 
-/* ── Custom Properties ───────────────────── */
+/* ── Custom Properties ──────────────────── */
 :root {
   /* Editorial Palette - Sophisticated & Warm */
   --olive: #586432;
@@ -49,7 +49,7 @@
   /* Luxury ease-out-expo */
 }
 
-/* ── Reset & Base ──────────────────────── */
+/* ── Reset & Base ──────────────────── */
 *,
 *::before,
 *::after {
@@ -84,7 +84,7 @@ a {
   text-decoration: none;
 }
 
-/* ── Container ─────────────────────────── */
+/* ── Container ─────────────────────── */
 .container {
   width: 90%;
   max-width: var(--container-max);
@@ -95,7 +95,7 @@ a {
   max-width: var(--container-narrow);
 }
 
-/* ── Section ───────────────────────────── */
+/* ── Section ───────────────────────── */
 .section {
   padding: var(--section-py) 0;
 }
@@ -122,7 +122,7 @@ a {
 }
 
 
-/* ── Navigation ────────────────────────── */
+/* ── Navigation ────────────────────── */
 .nav {
   position: fixed;
   top: 0;
@@ -270,7 +270,7 @@ a {
   }
 }
 
-/* ── Hero ───────────────────────────────── */
+/* ── Hero ─────────────────────────── */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -469,7 +469,7 @@ a {
   }
 }
 
-/* ── Buttons ───────────────────────────── */
+/* ── Buttons ─────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -513,7 +513,7 @@ a {
   transform: translateY(-3px);
 }
 
-/* ── About ─────────────────────────────── */
+/* ── About ───────────────────────── */
 .about__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -525,6 +525,7 @@ a {
   margin-bottom: 1rem;
   font-size: 1.05rem;
   color: var(--text-light);
+  text-align: justify;
 }
 
 .about__text p:first-child::first-letter {
@@ -559,7 +560,7 @@ a {
   }
 }
 
-/* ── Details / Cards ─────────────────────── */
+/* ── Details / Cards ─────────────────── */
 .details {
   background: var(--cream-dark);
 }
@@ -816,7 +817,7 @@ a {
   }
 }
 
-/* ── Details Layout Mobile ────────────────── */
+/* ── Details Layout Mobile ──────────────── */
 @media (max-width: 1024px) {
   .details__main-cards {
     grid-template-columns: 1fr;
@@ -974,7 +975,7 @@ a {
   }
 }
 
-/* ── RSVP Section ───────────────────────── */
+/* ── RSVP Section ─────────────────────── */
 .rsvp {
   background: var(--cream-dark);
 }
@@ -1106,7 +1107,7 @@ a {
   }
 }
 
-/* ── FAQ / Accordion ─────────────────────── */
+/* ── FAQ / Accordion ─────────────────── */
 .accordion__item {
   border-bottom: 1px solid var(--beige);
 }
@@ -1157,7 +1158,7 @@ details[open] .accordion__header::after {
   line-height: 1.7;
 }
 
-/* ── Contact ────────────────────────────── */
+/* ── Contact ──────────────────────── */
 .contact {
   text-align: center;
 }
@@ -1171,7 +1172,7 @@ details[open] .accordion__header::after {
   margin-right: auto;
 }
 
-/* ── Footer ────────────────────────────── */
+/* ── Footer ──────────────────────── */
 .footer {
   background: var(--burgundy);
   color: rgba(255, 255, 255, .85);
@@ -1195,7 +1196,7 @@ details[open] .accordion__header::after {
   opacity: .65;
 }
 
-/* ── Scroll Reveal ───────────────────────── */
+/* ── Scroll Reveal ───────────────────── */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -1207,7 +1208,7 @@ details[open] .accordion__header::after {
   transform: translateY(0);
 }
 
-/* ── Utilities ───────────────────────────── */
+/* ── Utilities ─────────────────────── */
 @media (max-width: 480px) {
   .hero__title {
     font-size: 2.6rem;
@@ -1726,7 +1727,7 @@ details[open] .accordion__header::after {
   }
 }
 
-/* ── Créditos ───────────────────────────── */
+/* ── Créditos ─────────────────────────── */
 .credits {
   margin-top: 2.5rem;
   padding-top: 2rem;
