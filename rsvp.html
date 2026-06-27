@@ -52,48 +52,96 @@
       font-size: 1.3rem;
       color: var(--burgundy);
     }
-    /* Hearts rating */
+    /* Hearts rating — Uiverse inspired */
     .form__hearts-wrap {
       background: var(--cream-dark);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.2rem 1.4rem 1rem;
+      padding: 1.4rem 1.4rem 1rem;
       margin-top: 0.5rem;
     }
-    .form__hearts-rating {
+    .radio {
       display: flex;
-      gap: 0.5rem;
-      align-items: center;
       justify-content: center;
-      margin: 0.4rem 0 0.8rem;
+      gap: 12px;
+      flex-direction: row-reverse;
+      padding: 0.6rem 0 0.8rem;
     }
-    .form__heart {
+    .radio > input {
+      position: absolute;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .radio > label {
       cursor: pointer;
       position: relative;
-      line-height: 1;
+      display: inline-block;
+      transition: transform 0.3s ease;
     }
-    .form__heart input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0;
-      height: 0;
-      pointer-events: none;
-    }
-    .form__heart span {
+    .radio > label > svg {
       display: block;
-      font-size: 2.6rem;
-      color: #ddd;
-      transition: color 0.2s, transform 0.2s;
-      user-select: none;
+      width: 40px;
+      height: 40px;
+      fill: #ccc;
+      transition: fill 0.3s ease;
     }
-    .form__heart.selected span {
-      color: var(--burgundy);
-      transform: scale(1.15);
+    .radio > label::before,
+    .radio > label::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: var(--burgundy);
+      border-radius: 50%;
+      opacity: 0;
+      transform: scale(0);
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
-    .form__heart.hovered span {
-      color: var(--burgundy);
-      transform: scale(1.25);
-      filter: brightness(1.1);
+    .radio > label::before {
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+    }
+    .radio > label::after {
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+    }
+    .radio > label:hover::before,
+    .radio > label:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.5);
+    }
+    .radio > label:hover {
+      transform: scale(1.2);
+      animation: heart-pulse 0.6s infinite alternate;
+    }
+    .radio > label:hover > svg,
+    .radio > label:hover ~ label > svg {
+      fill: var(--burgundy);
+      filter: drop-shadow(0 0 12px rgba(92, 30, 45, 0.8));
+      animation: heart-shimmer 1s ease infinite alternate;
+    }
+    .radio > input:checked + label > svg,
+    .radio > input:checked + label ~ label > svg {
+      fill: var(--burgundy);
+      filter: drop-shadow(0 0 10px rgba(92, 30, 45, 0.7));
+      animation: heart-pulse 0.8s infinite alternate;
+    }
+    .radio > input:checked + label:hover > svg,
+    .radio > input:checked + label:hover ~ label > svg {
+      fill: #3d1020;
+    }
+    .radio input:checked ~ label svg {
+      fill: #7a2535;
+    }
+    @keyframes heart-pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+    @keyframes heart-shimmer {
+      0% { filter: drop-shadow(0 0 8px rgba(92, 30, 45, 0.4)); }
+      100% { filter: drop-shadow(0 0 18px rgba(92, 30, 45, 1)); }
     }
     .form__hearts-label {
       text-align: center;
@@ -114,7 +162,7 @@
       font-size: 0.72rem;
       color: var(--text-light);
       letter-spacing: 0.02em;
-      margin-top: 0.2rem;
+      margin-top: 0.4rem;
     }
   </style>
 </head>
@@ -266,12 +314,17 @@
           <div class="form__group">
             <label class="form__label">¿Cuántas ganas tienes de que llegue el gran día?</label>
             <div class="form__hearts-wrap">
-              <div class="form__hearts-rating" id="hearts-rating">
-                <label class="form__heart"><input type="radio" name="ganas" value="1" /><span>♥</span></label>
-                <label class="form__heart"><input type="radio" name="ganas" value="2" /><span>♥</span></label>
-                <label class="form__heart"><input type="radio" name="ganas" value="3" /><span>♥</span></label>
-                <label class="form__heart"><input type="radio" name="ganas" value="4" /><span>♥</span></label>
-                <label class="form__heart"><input type="radio" name="ganas" value="5" /><span>♥</span></label>
+              <div class="radio" id="hearts-rating">
+                <input type="radio" name="ganas" id="heart5" value="5">
+                <label for="heart5"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg></label>
+                <input type="radio" name="ganas" id="heart4" value="4">
+                <label for="heart4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg></label>
+                <input type="radio" name="ganas" id="heart3" value="3">
+                <label for="heart3"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg></label>
+                <input type="radio" name="ganas" id="heart2" value="2">
+                <label for="heart2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg></label>
+                <input type="radio" name="ganas" id="heart1" value="1">
+                <label for="heart1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53L12 21.35z"/></svg></label>
               </div>
               <div class="form__hearts-label" id="hearts-label"></div>
               <div class="form__hearts-scale">
@@ -425,42 +478,26 @@
       const heartMessages = ['', 'Algo de ganas...', 'Bastantes ganas', '¡Muchas ganas!', '¡Muchísimas ganas!', '¡No puedo esperar más!'];
 
       if (heartsContainer) {
-        const heartLabels = heartsContainer.querySelectorAll('.form__heart');
-
-        function updateLabel(index) {
+        function setLabel(value) {
           if (heartsLabel) {
-            heartsLabel.textContent = heartMessages[index + 1];
-            heartsLabel.classList.toggle('visible', index >= 0);
+            heartsLabel.textContent = heartMessages[value] || '';
+            heartsLabel.classList.toggle('visible', value > 0);
           }
         }
 
-        heartLabels.forEach((heart, index) => {
-          heart.addEventListener('click', () => {
-            heartLabels.forEach((h, i) => {
-              if (i <= index) h.classList.add('selected');
-              else h.classList.remove('selected');
-            });
-            updateLabel(index);
-          });
-          heart.querySelector('span').addEventListener('mouseover', () => {
-            heartLabels.forEach((h, i) => {
-              if (i <= index) h.classList.add('hovered');
-              else h.classList.remove('hovered');
-            });
-            if (heartsLabel) {
-              heartsLabel.textContent = heartMessages[index + 1];
-              heartsLabel.classList.add('visible');
-            }
-          });
+        heartsContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+          input.addEventListener('change', () => setLabel(parseInt(input.value)));
+        });
+
+        heartsContainer.querySelectorAll('label').forEach(label => {
+          const input = document.getElementById(label.getAttribute('for'));
+          const value = input ? parseInt(input.value) : 0;
+          label.addEventListener('mouseenter', () => setLabel(value));
         });
 
         heartsContainer.addEventListener('mouseleave', () => {
-          heartLabels.forEach(h => h.classList.remove('hovered'));
-          const selected = heartsContainer.querySelectorAll('.form__heart.selected').length;
-          if (heartsLabel) {
-            heartsLabel.textContent = selected > 0 ? heartMessages[selected] : '';
-            heartsLabel.classList.toggle('visible', selected > 0);
-          }
+          const checked = heartsContainer.querySelector('input:checked');
+          setLabel(checked ? parseInt(checked.value) : 0);
         });
       }
 
