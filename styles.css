@@ -171,8 +171,8 @@ a { color: var(--burgundy); text-decoration: none; }
 
 .event-item__icon-wrapper {
   flex-shrink: 0;
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,8 +186,8 @@ a { color: var(--burgundy); text-decoration: none; }
 .event-item:hover .event-item__icon-wrapper { transform: scale(1.1) rotate(5deg); box-shadow: var(--shadow-elegant); border-color: var(--mustard); }
 
 .event-item__icon {
-  width: 60px;
-  height: 60px;
+  width: 74px;
+  height: 74px;
   object-fit: contain;
   font-weight: 600;
   color: var(--burgundy);
