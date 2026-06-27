@@ -53,10 +53,19 @@
       color: var(--burgundy);
     }
     /* Hearts rating */
+    .form__hearts-wrap {
+      background: var(--cream-dark);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem 1rem;
+      margin-top: 0.5rem;
+    }
     .form__hearts-rating {
       display: flex;
-      gap: 0.3rem;
-      margin-top: 0.5rem;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      margin: 0.4rem 0 0.8rem;
     }
     .form__heart {
       cursor: pointer;
@@ -72,15 +81,40 @@
     }
     .form__heart span {
       display: block;
-      font-size: 2.2rem;
+      font-size: 2.6rem;
       color: #ddd;
-      transition: color 0.15s, transform 0.15s;
+      transition: color 0.2s, transform 0.2s;
       user-select: none;
     }
-    .form__heart.selected span,
+    .form__heart.selected span {
+      color: var(--burgundy);
+      transform: scale(1.15);
+    }
     .form__heart.hovered span {
       color: var(--burgundy);
-      transform: scale(1.2);
+      transform: scale(1.25);
+      filter: brightness(1.1);
+    }
+    .form__hearts-label {
+      text-align: center;
+      font-family: var(--ff-heading);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--burgundy);
+      min-height: 1.4rem;
+      transition: opacity 0.2s;
+      opacity: 0;
+    }
+    .form__hearts-label.visible {
+      opacity: 1;
+    }
+    .form__hearts-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.02em;
+      margin-top: 0.2rem;
     }
   </style>
 </head>
@@ -231,12 +265,19 @@
 
           <div class="form__group">
             <label class="form__label">¿Cuántas ganas tienes de que llegue el gran día?</label>
-            <div class="form__hearts-rating" id="hearts-rating">
-              <label class="form__heart"><input type="radio" name="ganas" value="1" /><span>♥</span></label>
-              <label class="form__heart"><input type="radio" name="ganas" value="2" /><span>♥</span></label>
-              <label class="form__heart"><input type="radio" name="ganas" value="3" /><span>♥</span></label>
-              <label class="form__heart"><input type="radio" name="ganas" value="4" /><span>♥</span></label>
-              <label class="form__heart"><input type="radio" name="ganas" value="5" /><span>♥</span></label>
+            <div class="form__hearts-wrap">
+              <div class="form__hearts-rating" id="hearts-rating">
+                <label class="form__heart"><input type="radio" name="ganas" value="1" /><span>♥</span></label>
+                <label class="form__heart"><input type="radio" name="ganas" value="2" /><span>♥</span></label>
+                <label class="form__heart"><input type="radio" name="ganas" value="3" /><span>♥</span></label>
+                <label class="form__heart"><input type="radio" name="ganas" value="4" /><span>♥</span></label>
+                <label class="form__heart"><input type="radio" name="ganas" value="5" /><span>♥</span></label>
+              </div>
+              <div class="form__hearts-label" id="hearts-label"></div>
+              <div class="form__hearts-scale">
+                <span>Pocas</span>
+                <span>¡Muchísimas!</span>
+              </div>
             </div>
           </div>
 
@@ -380,24 +421,46 @@
 
       // Hearts rating
       const heartsContainer = document.getElementById('hearts-rating');
+      const heartsLabel = document.getElementById('hearts-label');
+      const heartMessages = ['', 'Algo de ganas...', 'Bastantes ganas', '¡Muchas ganas!', '¡Muchísimas ganas!', '¡No puedo esperar más!'];
+
       if (heartsContainer) {
         const heartLabels = heartsContainer.querySelectorAll('.form__heart');
+
+        function updateLabel(index) {
+          if (heartsLabel) {
+            heartsLabel.textContent = heartMessages[index + 1];
+            heartsLabel.classList.toggle('visible', index >= 0);
+          }
+        }
+
         heartLabels.forEach((heart, index) => {
           heart.addEventListener('click', () => {
             heartLabels.forEach((h, i) => {
               if (i <= index) h.classList.add('selected');
               else h.classList.remove('selected');
             });
+            updateLabel(index);
           });
           heart.querySelector('span').addEventListener('mouseover', () => {
             heartLabels.forEach((h, i) => {
               if (i <= index) h.classList.add('hovered');
               else h.classList.remove('hovered');
             });
+            if (heartsLabel) {
+              heartsLabel.textContent = heartMessages[index + 1];
+              heartsLabel.classList.add('visible');
+            }
           });
         });
+
         heartsContainer.addEventListener('mouseleave', () => {
           heartLabels.forEach(h => h.classList.remove('hovered'));
+          const selected = heartsContainer.querySelectorAll('.form__heart.selected').length;
+          if (heartsLabel) {
+            heartsLabel.textContent = selected > 0 ? heartMessages[selected] : '';
+            heartsLabel.classList.toggle('visible', selected > 0);
+          }
         });
       }
 
