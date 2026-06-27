@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src *;" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Confirmar Asistencia — Elena & Luis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -448,6 +448,15 @@
           const asiste = e.target.value === 'si';
           conditionalFields.style.display = asiste ? 'block' : 'none';
           notAttendingFields.style.display = asiste ? 'none' : 'block';
+          if (!asiste) {
+            conditionalFields.querySelectorAll('input, textarea').forEach(el => {
+              if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
+              else el.value = '';
+            });
+            companionNameField.style.display = 'none';
+            kidsNamesField.style.display = 'none';
+            busDetailsFields.style.display = 'none';
+          }
         });
       });
 
@@ -582,7 +591,8 @@
           generateSummary(fd, asiste);
 
         } catch (err) {
-          showError('Error de conexión: ' + err.message);
+          console.error('RSVP error:', err);
+          showError('Ha habido un problema al enviar el formulario. Por favor, inténtalo de nuevo o contáctanos directamente.');
           btn.textContent = btnTexto;
           btn.disabled = false;
         }
@@ -605,32 +615,41 @@
         if (el) el.textContent = '';
       }
 
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
       function generateSummary(fd, asiste) {
         const summaryDiv = document.getElementById('summary-content');
         if (!summaryDiv) return;
-        const nombre = fd.get('nombre') || 'Invitado';
+        const nombre = escapeHtml(fd.get('nombre') || 'Invitado');
         const asistenciaTexto = asiste ? '✅ Sí asistiré' : '❌ No podré asistir';
         let html = `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Invitado:</strong> ${nombre}</div><div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Asistencia:</strong> ${asistenciaTexto}</div>`;
         if (asiste) {
-          const acompanante = fd.get('acompanante') === 'si' ? (fd.get('nombre_acompanante') || 'Sí (sin nombre)') : 'No';
-          const ninos = fd.get('ninos') || '0';
-          const autobus = fd.get('autobus') || 'No necesito';
+          const acompanante = fd.get('acompanante') === 'si' ? escapeHtml(fd.get('nombre_acompanante') || 'Sí (sin nombre)') : 'No';
+          const ninos = escapeHtml(fd.get('ninos') || '0');
+          const autobus = escapeHtml(fd.get('autobus') || 'No necesito');
           const puntoBus = fd.get('punto_bus') === 'huesca' ? 'Huesca — Calle Teruel' : fd.get('punto_bus') === 'barbastro' ? 'Barbastro — Colegio Pedro I' : '';
           const alojamiento = fd.get('alojamiento') === 'si' ? 'Sí, necesito ayuda' : 'No, ya lo tengo';
           const ganas = fd.get('ganas') ? '♥'.repeat(parseInt(fd.get('ganas'))) : '-';
-          const cancion = fd.get('cancion') || 'No especificada';
+          const cancion = escapeHtml(fd.get('cancion') || 'No especificada');
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Acompañante:</strong> ${acompanante}</div>`;
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Niños:</strong> ${ninos}</div>`;
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Autobús:</strong> ${autobus}${puntoBus ? '<br><span style="margin-left:1rem;color:var(--text-light);">&#128205; ' + puntoBus + '</span>' : ''}</div>`;
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Alojamiento:</strong> ${alojamiento}</div>`;
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Ganas:</strong> <span style="color:var(--burgundy);font-size:1.2rem;">${ganas}</span></div>`;
-          if (fd.get('no_puede_faltar')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">No puede faltar:</strong> ${fd.get('no_puede_faltar')}</div>`;
-          if (fd.get('momento_especial')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Momento especial:</strong> ${fd.get('momento_especial')}</div>`;
+          if (fd.get('no_puede_faltar')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">No puede faltar:</strong> ${escapeHtml(fd.get('no_puede_faltar'))}</div>`;
+          if (fd.get('momento_especial')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Momento especial:</strong> ${escapeHtml(fd.get('momento_especial'))}</div>`;
           html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Canción:</strong> ${cancion}</div>`;
-          if (fd.get('alergias')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Alergias:</strong> ${fd.get('alergias')}</div>`;
-          if (fd.get('comentarios')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Comentarios:</strong> ${fd.get('comentarios')}</div>`;
+          if (fd.get('alergias')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Alergias:</strong> ${escapeHtml(fd.get('alergias'))}</div>`;
+          if (fd.get('comentarios')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Comentarios:</strong> ${escapeHtml(fd.get('comentarios'))}</div>`;
         } else {
-          if (fd.get('mensaje_no_asiste')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Mensaje:</strong> ${fd.get('mensaje_no_asiste')}</div>`;
+          if (fd.get('mensaje_no_asiste')) html += `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Mensaje:</strong> ${escapeHtml(fd.get('mensaje_no_asiste'))}</div>`;
         }
         summaryDiv.innerHTML = html;
       }

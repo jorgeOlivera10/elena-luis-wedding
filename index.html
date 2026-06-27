@@ -31,7 +31,7 @@
   <meta property="og:url" content="https://bodaelenayluis.com" />
 
   <!-- Preload -->
-  <link rel="preload" as="image" href="images/paisaje-2.jpeg" />
+  <link rel="preload" as="image" href="images/paisaje-2.jpeg" fetchpriority="high" />
 </head>
 
 <body>
@@ -47,7 +47,7 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav__links" id="nav-links">
-        <button class="nav__close" id="nav-close" aria-label="Cerrar menú">&times;</button>
+        <li class="nav__close-item"><button class="nav__close" id="nav-close" aria-label="Cerrar menú">&times;</button></li>
         <li><a href="#about">Celebración</a></li>
         <li><a href="#details">Detalles</a></li>
         <li><a href="#gallery">Galería</a></li>

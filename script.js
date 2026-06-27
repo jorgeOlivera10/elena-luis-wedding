@@ -25,6 +25,8 @@
   /* ── Countdown Timer ────────────────── */
   const WEDDING_DATE = new Date('2026-10-17T13:00:00+02:00');
 
+  let countdownTimer;
+
   function updateCountdown() {
     const now = new Date();
     const diff = WEDDING_DATE - now;
@@ -32,6 +34,7 @@
     if (diff <= 0) {
       const cd = document.getElementById('countdown');
       if (cd) cd.innerHTML = '<p style="font-family:var(--ff-heading);font-size:1.8rem;">¡Hoy es el gran día!</p>';
+      clearInterval(countdownTimer);
       return;
     }
 
@@ -52,7 +55,7 @@
   }
 
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  countdownTimer = setInterval(updateCountdown, 1000);
 
 
   /* ── Navigation ─────────────────────── */
@@ -117,7 +120,7 @@
     if (navLinks) {
       navLinks.querySelectorAll('a').forEach(a => {
         a.classList.remove('active');
-        if (a.getAttribute('href').includes(current)) {
+        if (current && a.getAttribute('href') === `#${current}`) {
           a.classList.add('active');
         }
       });
@@ -126,7 +129,9 @@
 
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const target = document.querySelector(this.getAttribute('href'));
+      const href = this.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         window.scrollTo({
@@ -169,7 +174,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            // Staggered reveal for children
+            observer.unobserve(entry.target);
             const children = entry.target.querySelectorAll('.reveal-child');
             children.forEach((child, i) => {
               setTimeout(() => child.classList.add('visible'), i * 150);
@@ -198,9 +203,11 @@
     const nextBtn = carousel.querySelector('.carousel__btn--next');
     const dots = carousel.querySelectorAll('.carousel__dot');
 
+    if (slides.length === 0) return;
+
     let currentSlide = 0;
     let autoPlayInterval;
-    const autoPlayDelay = 5000; // 5 segundos
+    const autoPlayDelay = 5000;
 
     function goToSlide(index) {
       // Normalize index
