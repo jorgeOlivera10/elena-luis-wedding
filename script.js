@@ -67,18 +67,28 @@
   window.addEventListener('scroll', handleNavScroll, { passive: true });
   handleNavScroll();
 
+  const closeBtn = document.getElementById('nav-close');
+
   function closeMenu() {
     if (navLinks) navLinks.classList.remove('open');
     if (overlay) overlay.classList.remove('active');
-    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.classList.remove('is-open');
+    }
   }
 
   if (toggle) {
     toggle.addEventListener('click', () => {
       const isOpen = navLinks.classList.toggle('open');
       toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.classList.toggle('is-open', isOpen);
       if (overlay) overlay.classList.toggle('active');
     });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeMenu);
   }
 
   if (overlay) {
