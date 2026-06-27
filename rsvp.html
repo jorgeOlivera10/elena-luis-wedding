@@ -91,7 +91,7 @@
       position: absolute;
       width: 6px;
       height: 6px;
-      background-color: var(--burgundy);
+      background-color: #e0304e;
       border-radius: 50%;
       opacity: 0;
       transform: scale(0);
@@ -118,30 +118,30 @@
     }
     .radio > label:hover > svg,
     .radio > label:hover ~ label > svg {
-      fill: var(--burgundy);
-      filter: drop-shadow(0 0 12px rgba(92, 30, 45, 0.8));
+      fill: #e0304e;
+      filter: drop-shadow(0 0 12px rgba(224, 48, 78, 0.8));
       animation: heart-shimmer 1s ease infinite alternate;
     }
     .radio > input:checked + label > svg,
     .radio > input:checked + label ~ label > svg {
-      fill: var(--burgundy);
-      filter: drop-shadow(0 0 10px rgba(92, 30, 45, 0.7));
+      fill: #e0304e;
+      filter: drop-shadow(0 0 10px rgba(224, 48, 78, 0.7));
       animation: heart-pulse 0.8s infinite alternate;
     }
     .radio > input:checked + label:hover > svg,
     .radio > input:checked + label:hover ~ label > svg {
-      fill: #3d1020;
+      fill: #b82240;
     }
     .radio input:checked ~ label svg {
-      fill: #7a2535;
+      fill: #c8294a;
     }
     @keyframes heart-pulse {
       0% { transform: scale(1); }
       100% { transform: scale(1.1); }
     }
     @keyframes heart-shimmer {
-      0% { filter: drop-shadow(0 0 8px rgba(92, 30, 45, 0.4)); }
-      100% { filter: drop-shadow(0 0 18px rgba(92, 30, 45, 1)); }
+      0% { filter: drop-shadow(0 0 8px rgba(224, 48, 78, 0.4)); }
+      100% { filter: drop-shadow(0 0 18px rgba(224, 48, 78, 1)); }
     }
     .form__hearts-label {
       text-align: center;
@@ -335,13 +335,13 @@
           </div>
 
           <div class="form__group">
-            <label for="rsvp-no-faltar" class="form__label">Algo que no puede faltar</label>
-            <input type="text" id="rsvp-no-faltar" name="no_puede_faltar" class="form__input" placeholder="¿Qué no puede faltar en una boda perfecta?" />
+            <label for="rsvp-no-faltar" class="form__label">¡Algo que no puede faltar!</label>
+            <input type="text" id="rsvp-no-faltar" name="no_puede_faltar" class="form__input" placeholder="Música, risas, buen vino... ¡lo que sea!" />
           </div>
 
           <div class="form__group">
-            <label for="rsvp-momento" class="form__label">Momento especial que ocurra</label>
-            <input type="text" id="rsvp-momento" name="momento_especial" class="form__input" placeholder="¿Qué momento especial te gustaría que ocurriera?" />
+            <label for="rsvp-momento" class="form__label">Un momento que esperas vivir ese día</label>
+            <input type="text" id="rsvp-momento" name="momento_especial" class="form__input" placeholder="Un baile, un brindis, una sorpresa..." />
           </div>
 
           <div class="form__group">
