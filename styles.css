@@ -189,6 +189,7 @@ a { color: var(--burgundy); text-decoration: none; }
   width: 74px;
   height: 74px;
   object-fit: contain;
+  mix-blend-mode: multiply;
   font-weight: 600;
   color: var(--burgundy);
   text-transform: uppercase;
@@ -341,7 +342,7 @@ details[open] .accordion__header::after { content: '−'; }
   height: 78px;
 }
 
-.card__icon-img { object-fit: contain; opacity: 0.76; }
+.card__icon-img { object-fit: contain; opacity: 0.76; mix-blend-mode: multiply; }
 .card__icon-svg { color: var(--burgundy); opacity: 0.8; }
 .card--detailed .card__title { margin: 0 0 1.4rem; font-size: 0.74rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--burgundy); }
 .card__body { flex: 1; margin-bottom: 1.8rem; }
