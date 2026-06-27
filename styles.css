@@ -324,8 +324,8 @@ details[open] .accordion__header::after { content: '−'; }
 .card--detailed:hover { transform: translateY(-4px); background: rgba(255,255,255,0.9); border-color: rgba(92,30,45,0.16); box-shadow: var(--shadow-card-hover); }
 
 .card__icon-wrap {
-  width: 84px;
-  height: 84px;
+  width: 110px;
+  height: 110px;
   margin-bottom: 1.45rem;
   border-radius: 50%;
   display: flex;
@@ -337,8 +337,8 @@ details[open] .accordion__header::after { content: '−'; }
 
 .card__icon-img,
 .card__icon-svg {
-  width: 36px;
-  height: 36px;
+  width: 50px;
+  height: 50px;
 }
 
 .card__icon-img { object-fit: contain; opacity: 0.76; }
