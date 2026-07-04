@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com;" />
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://script.google.com https://script.googleusercontent.com;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <title>Confirmar Asistencia — Elena & Luis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -566,24 +566,15 @@
         };
 
         try {
-          const sendRequest = () => fetch(APPS_SCRIPT_URL, {
+          // Sin reintentos automáticos: con mode no-cors el POST puede llegar
+          // al servidor aunque el fetch falle después, y reenviar duplica respuestas.
+          await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify(payload),
-            mode: 'no-cors'
+            mode: 'no-cors',
+            redirect: 'follow'
           });
-
-          let intentos = 0;
-          while (intentos < 3) {
-            try {
-              await sendRequest();
-              break;
-            } catch (retryErr) {
-              intentos++;
-              if (intentos < 3) await new Promise(r => setTimeout(r, 1000));
-              else throw retryErr;
-            }
-          }
 
           form.style.display = 'none';
           document.getElementById('rsvp-success').style.display = 'block';
