@@ -258,7 +258,7 @@
 
           <div class="form__group">
             <label for="rsvp-kids" class="form__label">¿Asistirán niños? Indícanos cuántos</label>
-            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0" placeholder="0" />
+            <input type="number" id="rsvp-kids" name="ninos" class="form__input form__input--short" min="0" max="10" placeholder="0" />
             <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">Deja en blanco o 0 si no vienen niños</span>
           </div>
 
@@ -530,6 +530,16 @@
         }
         if (confirmBox && !confirmBox.checked) {
           showError('Debes confirmar que los datos son correctos.');
+          return;
+        }
+
+        // El backend rechaza estos valores en silencio (la respuesta no es
+        // legible en modo no-cors), así que hay que validarlos aquí.
+        const kidsField = form.querySelector('[name="ninos"]');
+        const numNinos = parseInt(kidsField && kidsField.value) || 0;
+        if (numNinos > 10 || numNinos < 0) {
+          showError('El número de niños debe estar entre 0 y 10.');
+          kidsField.focus();
           return;
         }
 
