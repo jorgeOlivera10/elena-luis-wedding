@@ -208,8 +208,14 @@
         </div>
 
         <div class="form__group">
-          <label for="rsvp-name" class="form__label">Nombre y apellidos *</label>
+          <label for="rsvp-name" class="form__label">Nombre y apellidos (persona 1) *</label>
           <input type="text" id="rsvp-name" name="nombre" class="form__input" required placeholder="Como aparece en tu invitación" />
+        </div>
+
+        <div class="form__group">
+          <label for="rsvp-name2" class="form__label">Nombre y apellidos (persona 2)</label>
+          <input type="text" id="rsvp-name2" name="nombre_acompanante" class="form__input" placeholder="Si venís en pareja, escribe aquí su nombre" />
+          <span style="font-size: 0.85rem; color: var(--text-light); display:block; margin-top:0.4rem;">Deja en blanco si vienes solo/a</span>
         </div>
 
         <div class="form__group">
@@ -241,20 +247,7 @@
         <!-- Campos para los que SÍ asisten -->
         <div id="rsvp-conditional-fields" style="display: none;">
 
-          <div class="form__divider">Acompañantes y Niños</div>
-
-          <div class="form__group">
-            <label class="form__label">¿Vendrás con acompañante?</label>
-            <div class="form__radio-group">
-              <label class="form__radio"><input type="radio" name="acompanante" value="si" /><span>Sí</span></label>
-              <label class="form__radio"><input type="radio" name="acompanante" value="no" /><span>No</span></label>
-            </div>
-          </div>
-
-          <div class="form__group" id="field-nombre-acompanante" style="display: none;">
-            <label for="rsvp-companion-name" class="form__label">Nombre del acompañante</label>
-            <input type="text" id="rsvp-companion-name" name="nombre_acompanante" class="form__input" placeholder="Nombre completo" />
-          </div>
+          <div class="form__divider">Niños</div>
 
           <div class="form__group">
             <label for="rsvp-kids" class="form__label">¿Asistirán niños? Indícanos cuántos</label>
@@ -439,7 +432,6 @@
       const form = document.getElementById('rsvp-page-form');
       const conditionalFields = document.getElementById('rsvp-conditional-fields');
       const notAttendingFields = document.getElementById('rsvp-not-attending-fields');
-      const companionNameField = document.getElementById('field-nombre-acompanante');
       const kidsNamesField = document.getElementById('field-nombres-ninos');
       const busDetailsFields = document.getElementById('fields-bus-details');
 
@@ -453,16 +445,9 @@
               if (el.type === 'radio' || el.type === 'checkbox') el.checked = false;
               else el.value = '';
             });
-            companionNameField.style.display = 'none';
             kidsNamesField.style.display = 'none';
             busDetailsFields.style.display = 'none';
           }
-        });
-      });
-
-      document.querySelectorAll('input[name="acompanante"]').forEach(r => {
-        r.addEventListener('change', e => {
-          companionNameField.style.display = e.target.value === 'si' ? 'block' : 'none';
         });
       });
 
@@ -551,6 +536,7 @@
 
         const fd = new FormData(form);
         const asiste = fd.get('asistencia') === 'si';
+        const nombre2 = (fd.get('nombre_acompanante') || '').trim();
 
         const payload = {
           nombre: fd.get('nombre') || '',
@@ -558,8 +544,8 @@
           email: fd.get('email') || '',
           asistencia: fd.get('asistencia') || '',
           honeypot: fd.get('honeypot') || '',
-          acompanante: asiste ? fd.get('acompanante') || '' : '',
-          nombre_acompanante: asiste ? fd.get('nombre_acompanante') || '' : '',
+          acompanante: asiste ? (nombre2 ? 'si' : 'no') : '',
+          nombre_acompanante: asiste ? nombre2 : '',
           ninos: asiste ? fd.get('ninos') || '' : '',
           nombres_ninos: asiste ? fd.get('nombres_ninos') || '' : '',
           alergias: asiste ? fd.get('alergias') || '' : '',
@@ -632,7 +618,7 @@
         const asistenciaTexto = asiste ? '✅ Sí asistiré' : '❌ No podré asistir';
         let html = `<div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Invitado:</strong> ${nombre}</div><div style="margin-bottom:1rem;"><strong style="color:var(--burgundy);">Asistencia:</strong> ${asistenciaTexto}</div>`;
         if (asiste) {
-          const acompanante = fd.get('acompanante') === 'si' ? escapeHtml(fd.get('nombre_acompanante') || 'Sí (sin nombre)') : 'No';
+          const acompanante = (fd.get('nombre_acompanante') || '').trim() ? escapeHtml(fd.get('nombre_acompanante').trim()) : 'No';
           const ninos = escapeHtml(fd.get('ninos') || '0');
           const autobus = escapeHtml(fd.get('autobus') || 'No necesito');
           const puntoBus = fd.get('punto_bus') === 'huesca' ? 'Huesca — Calle Teruel' : fd.get('punto_bus') === 'barbastro' ? 'Barbastro — Colegio Pedro I' : '';
